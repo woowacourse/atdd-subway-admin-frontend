@@ -1,0 +1,11 @@
+#subway-line-name {
+  width: calc(100% - 60px);
+}
+
+.subway-lines-container {
+  height: 450px;
+}
+
+.lines-list {
+  height: calc(100% - 400px);
+}

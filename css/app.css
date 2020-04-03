@@ -1,0 +1,15 @@
+.app-container {
+  height: calc(100vh - 78px);
+}
+
+.width-400px {
+  width: 400px;
+}
+
+.width-450px {
+  width: 450px;
+}
+
+.bottom-6 {
+  bottom: 6px;
+}
