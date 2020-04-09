@@ -1,3 +1,7 @@
 #subway-station-name {
   width: calc(100% - 60px);
 }
+
+.slider-list {
+  max-height: calc(100vh - 400px);
+}
