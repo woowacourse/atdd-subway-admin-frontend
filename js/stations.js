@@ -1,7 +1,7 @@
 import { EVENT_TYPE } from "../utils/constants.js";
-import { listItemTemplate, initNavigation } from "../utils/templates.js";
+import { listItemTemplate } from "../utils/templates.js";
 
-function StationsApp() {
+function StationAdmin() {
   const $stationAddButton = document.querySelector("#station-add-btn");
   const $stationList = document.querySelector("#station-list");
 
@@ -30,10 +30,9 @@ function StationsApp() {
   };
 
   this.init = () => {
-    initNavigation();
     initEventListeners();
   };
 }
 
-const stations = new StationsApp();
-stations.init();
+const stationAdmin = new StationAdmin();
+stationAdmin.init();
