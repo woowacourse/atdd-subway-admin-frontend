@@ -1,8 +1,4 @@
-import {
-  optionTemplate,
-  initNavigation,
-  subwayLinesItemTemplate
-} from "../utils/templates.js";
+import { optionTemplate, subwayLinesItemTemplate } from "../utils/templates.js";
 import { defulatSubwayLines } from "../utils/subwayMockData.js";
 import tns from "../lib/slider/tiny-slider.js";
 import { EVENT_TYPE } from "../utils/constants.js";
@@ -70,7 +66,6 @@ function Edges() {
   };
 
   this.init = () => {
-    initNavigation();
     initSubwayLinesSlider();
     initSubwayLineOptions();
     initEventListeners();
