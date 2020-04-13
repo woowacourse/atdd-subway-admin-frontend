@@ -1,5 +1,5 @@
 import { optionTemplate, subwayLinesItemTemplate } from "../utils/templates.js";
-import { defulatSubwayLines } from "../utils/subwayMockData.js";
+import { defaultSubwayLines } from "../utils/subwayMockData.js";
 import tns from "../lib/slider/tiny-slider.js";
 import { EVENT_TYPE } from "../utils/constants.js";
 
@@ -7,7 +7,7 @@ function Edges() {
   const $subwayLinesSlider = document.querySelector(".subway-lines-slider");
 
   const initSubwayLinesSlider = () => {
-    $subwayLinesSlider.innerHTML = defulatSubwayLines
+    $subwayLinesSlider.innerHTML = defaultSubwayLines
       .map(line => subwayLinesItemTemplate(line))
       .join("");
     tns({
@@ -38,7 +38,7 @@ function Edges() {
   };
 
   const initSubwayLineOptions = () => {
-    const subwayLineOptionTemplate = defulatSubwayLines
+    const subwayLineOptionTemplate = defaultSubwayLines
       .map(line => optionTemplate(line.title))
       .join("");
     const $stationSelectOptions = document.querySelector(
