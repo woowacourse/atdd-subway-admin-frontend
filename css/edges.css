@@ -3,5 +3,5 @@
 }
 
 .slider-list {
-  max-height: calc(100vh - 400px);
+  height: calc(100vh - 275px);
 }

@@ -2,9 +2,11 @@ import { optionTemplate, subwayLinesItemTemplate } from "../utils/templates.js";
 import { defaultSubwayLines } from "../utils/subwayMockData.js";
 import tns from "../lib/slider/tiny-slider.js";
 import { EVENT_TYPE } from "../utils/constants.js";
+import Modal from "../ui/Modal.js";
 
 function Edges() {
   const $subwayLinesSlider = document.querySelector(".subway-lines-slider");
+  const createSubwayEdgeModal = new Modal();
 
   const initSubwayLinesSlider = () => {
     $subwayLinesSlider.innerHTML = defaultSubwayLines
@@ -19,21 +21,8 @@ function Edges() {
       mouseDrag: true,
       lazyload: true,
       controlsContainer: "#slider-controls",
-      responsive: {
-        640: {
-          items: 1,
-          edgePadding: 25
-        },
-        768: {
-          items: 1,
-          edgePadding: 25
-        },
-        1024: {
-          items: 2,
-          gutter: 20,
-          edgePadding: 10
-        }
-      }
+      items: 1,
+      edgePadding: 25
     });
   };
 

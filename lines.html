@@ -13,11 +13,14 @@
     <div class="flex justify-center md:py-10 lg:py-10 app-container">
       <div class="max-w-md width-450px rounded bg-white shadow-lg p-6">
         <div>
-          <div class="font-bold text-xl mb-4 text-center relative">
-            지하철 노선 관리
-            <button id="subway-line-add-btn" class="modal-open bg-transparent bg-yellow-500 hover:bg-yellow-400 hover:text-gray-700 text-gray-800 text-sm px-3 py-1 rounded-sm absolute right-0 rounded-full">
-              노선 추가
-            </button>
+          <div class="font-bold text-xl mb-4 relative w-full flex items-stretch">
+            <div class="flex-1"></div>
+            <div class="flex-1 text-center">노선 관리</div>
+            <div class="flex-1 flex justify-end">
+              <button id="subway-line-add-btn" class="modal-open bg-transparent bg-yellow-500 hover:bg-yellow-400 hover:text-gray-700 text-gray-800 text-sm px-3 py-1 rounded-sm rounded-full">
+                노선 추가
+              </button>
+            </div>
           </div>
           <div class="lines-info flex flex-wrap mb-3 w-full">
               <div class="w-1/2 p-2 text-center text-gray-800 bg-gray-200">첫차 시간</div>
@@ -37,9 +40,8 @@
 
     <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
       <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-
       <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-        <div class="modal-content text-left pt-8 px-8 pb-4">
+        <div class="modal-content text-left px-8 py-4">
           <div class="flex justify-center items-center pb-3 pt-3">
             <p class="text-2xl font-bold ">노선 추가</p>
           </div>
@@ -65,6 +67,7 @@
           </form>
         </div>
       </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script type="module" src="./js/app.js"></script>
     <script type="module" src="./js/lines.js"></script>

@@ -6,7 +6,8 @@ function Modal() {
   const $body = document.querySelector("body");
   const $modal = document.querySelector(".modal");
 
-  const toggleModal = () => {
+  const toggleModal = event => {
+    event.preventDefault();
     $body.classList.toggle("modal-active");
     $modal.classList.toggle("opacity-0");
     $modal.classList.toggle("pointer-events-none");
