@@ -17,6 +17,7 @@
     />
     <link href="./css/app.css" rel="stylesheet" />
     <link href="./css/stations.css" rel="stylesheet" />
+    <link href="./lib/snackbar/snackbar.css" rel="stylesheet" />
   </head>
   <body class="bg-gray-200 h-screen">
     <div class="flex justify-center md:py-10 lg:py-10 app-container">
@@ -28,11 +29,12 @@
               class="inline-block appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="station-name"
               type="text"
+              autocomplete="off"
               placeholder="역 이름을 추가해주세요."
             />
             <button
               id="station-add-btn"
-              class="inline-block  text-sm bg-yellow-500 hover:bg-yellow-400 hover:text-gray-700 text-gray-800 font-bold py-2 px-4 rounded-sm"
+              class="inline-block text-sm bg-yellow-500 hover:bg-yellow-400 hover:text-gray-700 text-gray-800 font-bold py-2 px-4 rounded-full"
             >
               추가
             </button>
@@ -43,7 +45,8 @@
         </div>
       </div>
     </div>
-    <script type="module" src="./js/app.js"></script>
-    <script type="module" src="./js/stations.js"></script>
+    <script type="text/javascript" src="./lib/snackbar/snackbar.js"></script>
+    <script type="module" src="./js/App.js"></script>
+    <script type="module" src="./js/views/StationAdmin.js"></script>
   </body>
 </html>

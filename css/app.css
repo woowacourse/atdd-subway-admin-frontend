@@ -1,3 +1,11 @@
+.app-container {
+  height: calc(100vh - 78px);
+}
+
+.main-logo {
+  width: 170px;
+}
+
 .modal {
   transition: opacity 0.25s ease;
 }
@@ -11,8 +19,8 @@ body.modal-active {
   overflow-y: visible !important;
 }
 
-.app-container {
-  height: calc(100vh - 78px);
+.width-350px {
+  width: 350px;
 }
 
 .width-400px {

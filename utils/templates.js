@@ -7,7 +7,7 @@ export const listItemTemplate = value =>
 </div>`;
 
 export const subwayLinesTemplate = line =>
-  `<div class="border border-gray-200 py-2 px-4 text-gray-800 ">
+  `<div class="subway-line-item border border-gray-200 py-2 px-4 text-gray-800">
   <span class="${line.bgColor} w-3 h-3 rounded-full inline-block mr-1"></span>
   ${line.title}
   <button class="hover:bg-gray-300 hover:text-gray-500 text-gray-300 px-1 rounded-full float-right">
@@ -17,24 +17,28 @@ export const subwayLinesTemplate = line =>
 
 export const optionTemplate = value => `<option>${value}</option>`;
 
-const navTemplate = `<nav class="flex items-center justify-between flex-wrap bg-yellow-500 p-6">
+const navTemplate = `<nav class="flex items-center justify-between flex-wrap bg-yellow-500 p-4">
   <div class="flex items-center flex-shrink-0 text-gray-800 w-full">
-    <span class="font-bold text-xl tracking-tight">B</span>
-    <div class="w-full block flex-grow flex items-center w-auto">
-      <div class="text-sm lg:flex-grow ml-4">
-        <a href="/stations.html" class="block inline-block lg:mt-0 text-gray-800 hover:text-white mr-4">
+      <a href="/" class="mr-2">
+        <img src="../images/logo_small.png" class="w-6">
+      </a>
+    <div class="flex justify-start">
+      <div class="hover:bg-yellow-400 px-2 py-1 rounded">
+         <a href="/station-admin.html" class="block inline-block lg:mt-0 text-gray-800 text-sm">
           역 관리
-        </a>
-        <a href="/lines.html" class="block inline-block lg:mt-0 text-gray-800 hover:text-white mr-4">
+          </a>
+      </div>
+      <div class="hover:bg-yellow-400 px-2 py-1 rounded">
+         <a href="/line-admin.html" class="block inline-block lg:mt-0 text-gray-800 text-sm">
           노선 관리
-        </a>
-        <a href="/edges.html" class="block inline-block lg:mt-0 text-gray-800 hover:text-white mr-4">
+          </a>
+      </div>
+      <div class="hover:bg-yellow-400 px-2 py-1 rounded">
+          <a href="/edge-admin.html" class="block inline-block lg:mt-0 text-gray-800 text-sm">
           구간 관리
-        </a>
+          </a>
       </div>
     </div>
-  </div>
-
 </nav>`;
 
 export const subwayLinesItemTemplate = line => {

@@ -1,13 +1,13 @@
-import { EVENT_TYPE } from "../utils/constants.js";
+import { EVENT_TYPE } from "../../utils/constants.js";
 import {
   subwayLinesTemplate,
   colorSelectOptionTemplate
-} from "../utils/templates.js";
-import { defaultSubwayLines } from "../utils/subwayMockData.js";
-import { subwayLineColorOptions } from "../utils/defaultSubwayData.js";
-import Modal from "../ui/Modal.js";
+} from "../../utils/templates.js";
+import { defaultSubwayLines } from "../../utils/subwayMockData.js";
+import { subwayLineColorOptions } from "../../utils/defaultSubwayData.js";
+import Modal from "../../ui/Modal.js";
 
-function SubwayLineApp() {
+function LineAdmin() {
   const $subwayLineList = document.querySelector("#subway-line-list");
   const $subwayLineNameInput = document.querySelector("#subway-line-name");
   const $subwayLineColorInput = document.querySelector("#subway-line-color");
@@ -36,7 +36,7 @@ function SubwayLineApp() {
     const $target = event.target;
     const isDeleteButton = $target.classList.contains("mdi-delete");
     if (isDeleteButton) {
-      $target.closest(".list-item").remove();
+      $target.closest(".subway-line-item").remove();
     }
   };
 
@@ -87,5 +87,5 @@ function SubwayLineApp() {
   };
 }
 
-const lineApp = new SubwayLineApp();
-lineApp.init();
+const lineAdmin = new LineAdmin();
+lineAdmin.init();

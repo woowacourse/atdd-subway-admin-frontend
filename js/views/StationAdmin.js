@@ -1,5 +1,5 @@
-import { EVENT_TYPE } from "../utils/constants.js";
-import { listItemTemplate } from "../utils/templates.js";
+import { EVENT_TYPE, ERROR_MESSAGE } from "../../utils/constants.js";
+import { listItemTemplate } from "../../utils/templates.js";
 
 function StationAdmin() {
   const $stationAddButton = document.querySelector("#station-add-btn");
@@ -10,6 +10,12 @@ function StationAdmin() {
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
     if (!stationName) {
+      Snackbar.show({
+        text: ERROR_MESSAGE.NOT_EMPTY,
+        pos: "bottom-center",
+        showAction: false,
+        duration: 2000
+      });
       return;
     }
     $stationNameInput.value = "";
