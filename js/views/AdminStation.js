@@ -40,5 +40,5 @@ function AdminStation() {
   };
 }
 
-const stationAdmin = new AdminStation();
-stationAdmin.init();
+const adminStation = new AdminStation();
+adminStation.init();

@@ -64,5 +64,5 @@ function AdminEdge() {
   };
 }
 
-const edgeAdmin = new AdminEdge();
-edgeAdmin.init();
+const adminEdge = new AdminEdge();
+adminEdge.init();

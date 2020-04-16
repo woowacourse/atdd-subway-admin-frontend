@@ -87,5 +87,5 @@ function AdminLine() {
   };
 }
 
-const lineAdmin = new AdminLine();
-lineAdmin.init();
+const adminLine = new AdminLine();
+adminLine.init();
