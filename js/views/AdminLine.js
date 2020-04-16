@@ -7,7 +7,7 @@ import { defaultSubwayLines } from "../../utils/subwayMockData.js";
 import { subwayLineColorOptions } from "../../utils/defaultSubwayData.js";
 import Modal from "../../ui/Modal.js";
 
-function LineAdmin() {
+function AdminLine() {
   const $subwayLineList = document.querySelector("#subway-line-list");
   const $subwayLineNameInput = document.querySelector("#subway-line-name");
   const $subwayLineColorInput = document.querySelector("#subway-line-color");
@@ -87,5 +87,5 @@ function LineAdmin() {
   };
 }
 
-const lineAdmin = new LineAdmin();
+const lineAdmin = new AdminLine();
 lineAdmin.init();

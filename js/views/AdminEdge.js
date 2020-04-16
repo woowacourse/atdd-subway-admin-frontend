@@ -7,7 +7,7 @@ import tns from "../../lib/slider/tiny-slider.js";
 import { EVENT_TYPE } from "../../utils/constants.js";
 import Modal from "../../ui/Modal.js";
 
-function EdgeAdmin() {
+function AdminEdge() {
   const $subwayLinesSlider = document.querySelector(".subway-lines-slider");
   const createSubwayEdgeModal = new Modal();
 
@@ -64,5 +64,5 @@ function EdgeAdmin() {
   };
 }
 
-const edgeAdmin = new EdgeAdmin();
+const edgeAdmin = new AdminEdge();
 edgeAdmin.init();

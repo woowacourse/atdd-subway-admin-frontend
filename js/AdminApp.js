@@ -1,6 +1,6 @@
 import { initNavigation } from "../utils/templates.js";
 
-function SubwayAdminApp() {
+function AdminApp() {
   const init = () => {
     initNavigation();
   };
@@ -10,5 +10,5 @@ function SubwayAdminApp() {
   };
 }
 
-const subwayAdminApp = new SubwayAdminApp();
-subwayAdminApp.init();
+const adminApp = new AdminApp();
+adminApp.init();

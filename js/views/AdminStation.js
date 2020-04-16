@@ -1,7 +1,7 @@
 import { EVENT_TYPE, ERROR_MESSAGE } from "../../utils/constants.js";
 import { listItemTemplate } from "../../utils/templates.js";
 
-function StationAdmin() {
+function AdminStation() {
   const $stationAddButton = document.querySelector("#station-add-btn");
   const $stationList = document.querySelector("#station-list");
 
@@ -40,5 +40,5 @@ function StationAdmin() {
   };
 }
 
-const stationAdmin = new StationAdmin();
+const stationAdmin = new AdminStation();
 stationAdmin.init();
