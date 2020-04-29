@@ -12,13 +12,27 @@ function AdminStation() {
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
+    if (validateName(stationName)){
+      $stationNameInput.value = "";
+      $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
+    }
+  };
+
+  function validateName(stationName) {
     if (!stationName) {
       alert(ERROR_MESSAGE.NOT_EMPTY);
-      return;
+      return false;
     }
-    $stationNameInput.value = "";
-    $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
-  };
+    if (RegExp('\\d').test(stationName)){
+      alert(ERROR_MESSAGE.INCLUDE_NUMBER);
+      return false;
+    }
+    if (RegExp(' ').test(stationName)){
+      alert(ERROR_MESSAGE.INCLUDE_BLANK);
+      return false;
+    }
+    return true;
+  }
 
   const onRemoveStationHandler = event => {
     const $target = event.target;
