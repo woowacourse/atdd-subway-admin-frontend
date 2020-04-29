@@ -16,8 +16,7 @@ function AdminStation() {
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
     $stationNameInput.value = "";
-    const isInvalid = isStationNameInvalid(stationName);
-    if (isInvalid) {
+    if (isStationNameInvalid(stationName)) {
       return;
     }
     stationNames = [...stationNames, stationName];
@@ -45,10 +44,15 @@ function AdminStation() {
   }
 
   const onRemoveStationHandler = event => {
+    if (!confirm("정말 삭제하시겠습니까?")) {
+      return;
+    }
     const $target = event.target;
     const isDeleteButton = $target.classList.contains("mdi-delete");
     if (isDeleteButton) {
-      $target.closest(".list-item").remove();
+      const closest = $target.closest(".list-item");
+      stationNames = stationNames.filter((name) => name !== closest.textContent.trim());
+      closest.remove();
     }
   };
 
