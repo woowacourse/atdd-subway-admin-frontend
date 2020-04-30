@@ -17,6 +17,21 @@ function AdminStation() {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
     }
+    if(stationName.includes(" ")) {
+      alert(ERROR_MESSAGE.NO_BLANK);
+      $stationNameInput.value = "";
+      return;
+    }
+    if(/\d/.test(stationName)) {
+      alert(ERROR_MESSAGE.NO_NUMERIC);
+      $stationNameInput.value = "";
+      return;
+    }
+    if(getStationNames().includes(stationName)) {
+      alert(ERROR_MESSAGE.NO_DUPLICATED);
+      $stationNameInput.value = "";
+      return;
+    }
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
@@ -34,6 +49,12 @@ function AdminStation() {
     $stationAddButton.addEventListener(EVENT_TYPE.CLICK, onAddStationHandler);
     $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
   };
+
+  const getStationNames = () => {
+    return Array.from($stationList.childNodes)
+        .map(x => x.textContent)
+        .map(x => x.trim());
+  }
 
   const init = () => {
     initEventListeners();
