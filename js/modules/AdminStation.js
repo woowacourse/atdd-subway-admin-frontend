@@ -1,12 +1,13 @@
-import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE } from "../../utils/constants.js";
+import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE, CLICK_TYPE } from "../../utils/constants.js";
 import { listItemTemplate } from "../../utils/templates.js";
 
 function AdminStation() {
   const $stationInput = document.querySelector("#station-name");
   const $stationList = document.querySelector("#station-list");
+  const $stationAddButton = document.querySelector(("#station-add-btn"));
 
   const onAddStationHandler = event => {
-    if (event.key !== KEY_TYPE.ENTER) {
+    if (event.key !== KEY_TYPE.ENTER && event.button !== CLICK_TYPE.LEFT_CLICK) {
       return;
     }
     event.preventDefault();
@@ -30,6 +31,7 @@ function AdminStation() {
 
   const initEventListeners = () => {
     $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, onAddStationHandler);
+    $stationAddButton.addEventListener(EVENT_TYPE.CLICK, onAddStationHandler);
     $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
   };
 

@@ -10,3 +10,7 @@ export const ERROR_MESSAGE = {
 export const KEY_TYPE = {
   ENTER: "Enter"
 };
+
+export const CLICK_TYPE = {
+  LEFT_CLICK: 0
+}
