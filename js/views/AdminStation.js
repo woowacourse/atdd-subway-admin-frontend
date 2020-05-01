@@ -28,6 +28,16 @@ function AdminStation() {
       });
       return;
     }
+    var number_pattern = /[0-9]/g;
+    if( number_pattern.test(stationName) == true){
+      Snackbar.show({
+        text: ERROR_MESSAGE.NUMBER_INCLUDED,
+        pos: "bottom-center",
+        showAction: false,
+        duration: 2000
+      });
+      return;
+    }
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
