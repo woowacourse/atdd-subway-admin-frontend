@@ -5,6 +5,7 @@ function AdminStation() {
   const $stationInput = document.querySelector("#station-name");
   const $stationAdd = document.querySelector("#station-add-btn");
   const $stationList = document.querySelector("#station-list");
+  let stationNames = [];
   const isInValidStation = stationName => {
     const invalidConditions = {
       empty : {
@@ -19,8 +20,8 @@ function AdminStation() {
         condition : name => REGEX_PATTERN.SPACE.exec(name),
         message : ERROR_MESSAGE.NOT_WHITE_SPACE
       },
-      duplicateStation : {
-        condition : name => $stationList.innerText.split("\n").includes(name),
+      duplicateName : {
+        condition : name => stationNames.includes(stationName),
         message : ERROR_MESSAGE.ALREADY_EXIST_STATION
       }
     };
@@ -44,6 +45,7 @@ function AdminStation() {
     if (isInValidStation(stationName)) {
       return;
     }
+    stationNames.push(stationName);
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
@@ -52,7 +54,9 @@ function AdminStation() {
     const $target = event.target;
     const isDeleteButton = $target.classList.contains("mdi-delete");
     if (isDeleteButton && confirm(CONFIRM_MESSAGE.DELETE)) {
-      $target.closest(".list-item").remove();
+      const removedNode = $target.closest(".list-item");
+      stationNames = stationNames.filter(name => name !== removedNode.innerText);
+      removedNode.remove();
     }
   };
 
