@@ -1,10 +1,24 @@
 import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE } from "../../utils/constants.js";
 import { listItemTemplate } from "../../utils/templates.js";
 
+const SPACE = " ";
+
 function AdminStation() {
   const $stationInput = document.querySelector("#station-name");
   const $stationList = document.querySelector("#station-list");
   const $stationAddButton = document.querySelector('#station-add-btn');
+
+  const isInvalid = (stationName) => {
+    if (!stationName) {
+      alert(ERROR_MESSAGE.NOT_EMPTY);
+      return true;
+    }
+    if (stationName.includes(SPACE)) {
+      alert(ERROR_MESSAGE.NOT_CONTAIN_SPACE);
+      return true;
+    }
+    return false;
+  }
 
   const onAddStationHandler = event => {
     if (event.type !== EVENT_TYPE.CLICK && event.key !== KEY_TYPE.ENTER) {
@@ -13,10 +27,11 @@ function AdminStation() {
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
-    if (!stationName) {
-      alert(ERROR_MESSAGE.NOT_EMPTY);
+
+    if (isInvalid(stationName)) {
       return;
     }
+
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };

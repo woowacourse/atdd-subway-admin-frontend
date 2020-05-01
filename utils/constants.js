@@ -4,7 +4,8 @@ export const EVENT_TYPE = {
 };
 
 export const ERROR_MESSAGE = {
-  NOT_EMPTY: "🤔 값을 입력해주세요"
+  NOT_EMPTY: "🤔 값을 입력해주세요",
+  NOT_CONTAIN_SPACE: "🤔 지하철역엔 공백이 포함 될 수 없습니다."
 };
 
 export const KEY_TYPE = {
