@@ -17,7 +17,6 @@
     />
     <link href="./css/admin-app.css" rel="stylesheet" />
     <link href="./css/admin-station.css" rel="stylesheet" />
-    <link href="./lib/snackbar/snackbar.css" rel="stylesheet" />
   </head>
   <body class="bg-gray-200 h-screen">
     <div class="flex justify-center md:py-10 lg:py-10 app-container">
@@ -32,6 +31,12 @@
               autocomplete="off"
               placeholder="역 이름을 추가해주세요."
             />
+            <button
+              id="station-add-btn"
+              class="inline-block text-sm bg-yellow-500 hover:bg-yellow-400 hover:text-gray-700 text-gray-800 font-bold py-2 px-4 rounded"
+            >
+              추가
+            </button>
           </div>
         </form>
         <div class="mt-5 flex station-list-container relative overflow-y-auto">
@@ -40,6 +45,6 @@
       </div>
     </div>
     <script type="module" src="./js/AdminApp.js"></script>
-    <script type="module" src="./js/views/AdminStation.js"></script>
+    <script type="module" src="./js/modules/AdminStation.js"></script>
   </body>
 </html>
