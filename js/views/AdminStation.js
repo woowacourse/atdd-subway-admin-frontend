@@ -8,6 +8,9 @@ function AdminStation() {
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
+    const blank_pattern = /[\s]/g;
+    const number_pattern = /[0-9]/g;
+
     if (!stationName) {
       Snackbar.show({
         text: ERROR_MESSAGE.NOT_EMPTY,
@@ -17,7 +20,6 @@ function AdminStation() {
       });
       return;
     }
-    var blank_pattern = /[\s]/g;
     if( blank_pattern.test(stationName) == true){
       Snackbar.show({
         text: ERROR_MESSAGE.SPACE_INCLUDED,
@@ -27,7 +29,6 @@ function AdminStation() {
       });
       return;
     }
-    var number_pattern = /[0-9]/g;
     if( number_pattern.test(stationName) == true){
       Snackbar.show({
         text: ERROR_MESSAGE.NUMBER_INCLUDED,
