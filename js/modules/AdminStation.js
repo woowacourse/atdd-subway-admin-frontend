@@ -21,6 +21,10 @@ function AdminStation() {
       alert(ERROR_MESSAGE.NOT_CONTAIN_NUMBER);
       return true;
     }
+    if ($stationList.innerText.includes(stationName)) {
+      alert(ERROR_MESSAGE.HAS_DUPLICATED)
+      return true;
+    }
     return false;
   }
 
