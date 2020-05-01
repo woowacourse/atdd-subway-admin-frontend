@@ -4,7 +4,6 @@ import { listItemTemplate } from "../../utils/templates.js";
 function AdminStation() {
   const $stationAddButton = document.querySelector("#station-add-btn");
   const $stationList = document.querySelector("#station-list");
-
   const onAddStationHandler = event => {
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
@@ -32,6 +31,15 @@ function AdminStation() {
     if( number_pattern.test(stationName) == true){
       Snackbar.show({
         text: ERROR_MESSAGE.NUMBER_INCLUDED,
+        pos: "bottom-center",
+        showAction: false,
+        duration: 2000
+      });
+      return;
+    }
+    if($stationList.innerText.split("\n").includes(stationName)) {
+      Snackbar.show({
+        text: ERROR_MESSAGE.DUPLICATE_STATION_NAME,
         pos: "bottom-center",
         showAction: false,
         duration: 2000
