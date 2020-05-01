@@ -1,8 +1,8 @@
 <p align="middle" >
-  <img width="200px;" src="https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/metro.png"/>
+  <img width="200px;" src="https://raw.githubusercontent.com/woowacourse/atdd-subway-admin-frontend/master/images/main_logo.png"/>
 </p>
-<h2 align="middle">level2 - Atdd Subway Admin</h2>
-<p align="middle">지하철 서비스 admin 관리 페이지</p>
+<h2 align="middle">level2 - RUNNINGMAP ADMIN</h2>
+<p align="middle">지하철 관리 서비스 admin 페이지</p>
 <p align="middle">
   <img src="https://img.shields.io/badge/version-0.0.1-blue?style=flat-square" alt="template version"/>
 <img src="https://img.shields.io/badge/language-html-blue.svg?style=flat-square"/>
@@ -10,6 +10,7 @@
   <img src="https://img.shields.io/github/license/daybrush/moveable.svg?style=flat-square&label=license&color=08CE5D"/>
   </a>
 </p>
+
 <br>
 
 ## 🔥 Projects!
@@ -49,7 +50,10 @@ live-server 폴더명
 
 <br>
 
+
+
 ## 🚀 Getting Started
+
 
 
 <br>
@@ -62,11 +66,10 @@ live-server 폴더명
 
 ## 🐞 Bug Report
 
-버그를 발견한다면, [Issues](https://github.com/woowacourse-projects/atdd-subway-admin/issues) 에 등록 후 @eastjun에게 dm을 보내주세요.
+버그를 발견한다면, [Issues](https://github.com/woowacourse/atdd-subway-admin-frontend/issues) 에 등록 후 @eastjun에게 dm을 보내주세요.
 
 <br>
 
 ## 📝 License
 
-This project is [MIT](https://github.com/woowacourse-projects/atdd-subway-admin/blob/master/LICENSE) licensed.
-
+This project is [MIT](https://github.com/woowacourse/atdd-subway-admin-frontend/blob/master/LICENSE) licensed.
