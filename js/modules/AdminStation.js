@@ -17,6 +17,10 @@ function AdminStation() {
       alert(ERROR_MESSAGE.NOT_CONTAIN_SPACE);
       return true;
     }
+    if (/([0-9])+/g.test(stationName)) {
+      alert(ERROR_MESSAGE.NOT_CONTAIN_NUMBER);
+      return true;
+    }
     return false;
   }
 
