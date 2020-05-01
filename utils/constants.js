@@ -4,7 +4,7 @@ export const EVENT_TYPE = {
 };
 
 export const ERROR_MESSAGE = {
-  NOT_EMPTY: "🤔 값을 입력해주세요"
+  NOT_EMPTY: "🤔 값은 공백과 숫자는 사용할 수 없어요!"
 };
 
 export const KEY_TYPE = {
