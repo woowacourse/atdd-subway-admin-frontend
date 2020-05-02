@@ -2,8 +2,6 @@ import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE } from "../../utils/constants.js";
 import { listItemTemplate } from "../../utils/templates.js";
 import { WrongUserInputException} from "../../utils/exceptions.js"
 
-let stationList = new Array();
-
 function AdminStation() {
   const $stationInput = document.querySelector("#station-name");  // 역 이름 입력하는 input 임
   const $stationList = document.querySelector("#station-list");
@@ -23,7 +21,6 @@ function AdminStation() {
       return;
     }
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName)); // 역이름 입력 결과 태그 추가
-    stationList.push(stationName);
   };
   
   /* 역 이름 입력하고 enter 눌렀을 때 */
@@ -74,8 +71,9 @@ function AdminStation() {
   };
 
   const validateStationNameAlreadyExist = function (stationName) {
-    stationList.forEach(existStationName => {
-      if (existStationName === stationName) {
+    const $existStationNames = document.querySelectorAll("#station-list .item-value");
+    $existStationNames.forEach(existStationName => {
+      if (existStationName.innerHTML === stationName) {
         throw new WrongUserInputException(ERROR_MESSAGE.ALREADY_EXIST);
       }
     });
@@ -85,7 +83,7 @@ function AdminStation() {
   const onRemoveStationHandler = event => {
     const $target = event.target;
     const isDeleteButton = $target.classList.contains("mdi-delete");
-    if (isDeleteButton) {
+    if (isDeleteButton && confirm("정말 삭제하시겠습니까?") == true) {
       $target.closest(".list-item").remove();
     }
   };
