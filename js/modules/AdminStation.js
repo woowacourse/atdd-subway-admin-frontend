@@ -1,4 +1,4 @@
-import {EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE} from "../../utils/constants.js";
+import {EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE, MAGIC_NUMBER, REGEX} from "../../utils/constants.js";
 import {listItemTemplate} from "../../utils/templates.js";
 
 function AdminStation() {
@@ -17,13 +17,70 @@ function AdminStation() {
         onAddStationHandler(event);
     };
 
+    const validateInput = (input) => {
+        validateEmpty(input);
+        validateNumber(input);
+        validateSpace(input);
+        validateSameStation(input);
+    };
+
+    const validateSameStation = input => {
+        if (isSameStation(input)) {
+            throw ERROR_MESSAGE.SAME_STATION_NAME;
+        }
+    }
+
+    const validateNumber = input => {
+        if (containsNumber(input)) {
+            throw ERROR_MESSAGE.NUMBER;
+        }
+    }
+
+    const validateSpace = input => {
+        if (containsSpace(input)) {
+            throw ERROR_MESSAGE.SPACE;
+        }
+    }
+
+    const validateEmpty = input => {
+        if (isEmpty(input)) {
+            throw ERROR_MESSAGE.EMPTY;
+        }
+    }
+
+    const containsNumber = input => {
+        return REGEX.NUMBER.test(input);
+    }
+
+    const containsSpace = input => {
+        return input.indexOf(REGEX.SPACE) > MAGIC_NUMBER.NOT_EXIST;
+    }
+
+    const isEmpty = input => {
+        return input.length === 0;
+    }
+
+    const isSameStation = input => {
+        let texts = convertToTexts($stationList.childNodes);
+        return texts.includes(input);
+    };
+
+    const convertToTexts = nodes => {
+        let texts = [];
+        for (let node of nodes) {
+            texts.push(node.textContent.trim());
+        }
+        return texts;
+    }
 
     const onAddStationHandler = event => {
         event.preventDefault();
         const $stationNameInput = document.querySelector("#station-name");
         const stationName = $stationNameInput.value;
-        if (!stationName) {
-            alert(ERROR_MESSAGE.NOT_EMPTY);
+        try {
+            validateInput(stationName)
+        } catch (e) {
+            alert(e);
             return;
         }
         $stationNameInput.value = "";
