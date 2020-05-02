@@ -13,10 +13,11 @@ function AdminStation() {
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
-    if (!stationName) {
-      alert(ERROR_MESSAGE.NOT_EMPTY);
+
+    if (validate(stationName)) {
       return;
     }
+
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
@@ -42,6 +43,17 @@ function AdminStation() {
   return {
     init
   };
+}
+
+function validate(stationName) {
+  if (!stationName) {
+    alert(ERROR_MESSAGE.NOT_EMPTY);
+    return true;
+  } else if (stationName.includes(" ")) {
+    alert(ERROR_MESSAGE.HAS_SPACE);
+    return true;
+  }
+  return false;
 }
 
 const adminStation = new AdminStation();
