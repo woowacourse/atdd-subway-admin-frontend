@@ -2,6 +2,8 @@ import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE } from "../../utils/constants.js";
 import { listItemTemplate } from "../../utils/templates.js";
 import { WrongUserInputException} from "../../utils/exceptions.js"
 
+let stationList = new Array();
+
 function AdminStation() {
   const $stationInput = document.querySelector("#station-name");  // 역 이름 입력하는 input 임
   const $stationList = document.querySelector("#station-list");
@@ -14,12 +16,14 @@ function AdminStation() {
     const stationName = $stationNameInput.value;
     $stationNameInput.value = "";  // 역 이름 입력창을 비워줌.
     try {
-      validateStationName(stationName);
+      validateStationNameFormat(stationName);
+      validateStationNameAlreadyExist(stationName);
     } catch (e) {
       alert(e.message);
       return;
     }
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName)); // 역이름 입력 결과 태그 추가
+    stationList.push(stationName);
   };
   
   /* 역 이름 입력하고 enter 눌렀을 때 */
@@ -30,10 +34,7 @@ function AdminStation() {
     onAddStationHandler(event);
   };
   
-  /**
-   * 역 이름 validation 메서드
-   */
-  const validateStationName = function (stationName) {
+  const validateStationNameFormat = function (stationName) {
     if (isStationNameEmpty(stationName)) {
       throw new WrongUserInputException(ERROR_MESSAGE.NOT_EMPTY);
       return;
@@ -71,6 +72,14 @@ function AdminStation() {
     }
     return false;
   };
+
+  const validateStationNameAlreadyExist = function (stationName) {
+    stationList.forEach(existStationName => {
+      if (existStationName === stationName) {
+        throw new WrongUserInputException(ERROR_MESSAGE.ALREADY_EXIST);
+      }
+    });
+  }
   
   /* 입력된 다음에 delete 버튼이 생기는듯? 그거로 아이템지우는 거 */
   const onRemoveStationHandler = event => {
