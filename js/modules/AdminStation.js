@@ -1,4 +1,4 @@
-import {EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE, MAGIC_NUMBER, REGEX} from "../../utils/constants.js";
+import {EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE, MAGIC_NUMBER, REGEX, NODE_NAME} from "../../utils/constants.js";
 import {listItemTemplate} from "../../utils/templates.js";
 
 function AdminStation() {
@@ -89,6 +89,13 @@ function AdminStation() {
 
     const onRemoveStationHandler = event => {
         const $target = event.target;
+        if ($target && $target.nodeName !== NODE_NAME.BUTTON && $target.nodeName !== NODE_NAME.SPAN) {
+            return;
+        }
+        const isDelete = confirm("정말로 삭제하시겠습니까?");
+        if (!isDelete) {
+            return;
+        }
         const isDeleteButton = $target.classList.contains("mdi-delete");
         if (isDeleteButton) {
             $target.closest(".list-item").remove();

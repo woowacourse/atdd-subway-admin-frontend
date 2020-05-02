@@ -22,3 +22,8 @@ export const REGEX = {
   SPACE: ' ',
   NUMBER: /\d/
 }
+
+export const NODE_NAME = {
+  BUTTON: "BUTTON",
+  SPAN: "SPAN"
+}
