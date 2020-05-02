@@ -92,8 +92,7 @@ function AdminStation() {
         if ($target && $target.nodeName !== NODE_NAME.BUTTON && $target.nodeName !== NODE_NAME.SPAN) {
             return;
         }
-        const isDelete = confirm("정말로 삭제하시겠습니까?");
-        if (!isDelete) {
+        if (!confirm("정말로 삭제하시겠습니까?")) {
             return;
         }
         const isDeleteButton = $target.classList.contains("mdi-delete");
