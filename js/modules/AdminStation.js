@@ -1,4 +1,4 @@
-import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE } from "../../utils/constants.js";
+import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE, CONFIRM_MESSAGE } from "../../utils/constants.js";
 import { listItemTemplate } from "../../utils/templates.js";
 
 function AdminStation() {
@@ -28,7 +28,8 @@ function AdminStation() {
   const onRemoveStationHandler = event => {
     const $target = event.target;
     const isDeleteButton = $target.classList.contains("mdi-delete");
-    if (isDeleteButton) {
+    if (isDeleteButton && confirm(CONFIRM_MESSAGE.DELETE)) {
+      stations.splice(stations.indexOf($target.value) - 1, 1);
       $target.closest(".list-item").remove();
     }
   };
