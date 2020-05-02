@@ -19,30 +19,15 @@ function AdminStation() {
       return;
     }
     if( blank_pattern.test(stationName) == true){
-      Snackbar.show({
-        text: ERROR_MESSAGE.SPACE_INCLUDED,
-        pos: "bottom-center",
-        showAction: false,
-        duration: 2000
-      });
+      alert(ERROR_MESSAGE.SPACE_INCLUDED);
       return;
     }
     if( number_pattern.test(stationName) == true){
-      Snackbar.show({
-        text: ERROR_MESSAGE.NUMBER_INCLUDED,
-        pos: "bottom-center",
-        showAction: false,
-        duration: 2000
-      });
+      alert(ERROR_MESSAGE.NUMBER_INCLUDED);
       return;
     }
     if($stationList.innerText.split("\n").includes(stationName)) {
-      Snackbar.show({
-        text: ERROR_MESSAGE.DUPLICATE_STATION_NAME,
-        pos: "bottom-center",
-        showAction: false,
-        duration: 2000
-      });
+      alert(ERROR_MESSAGE.DUPLICATE_STATION_NAME);
       return;
     }
     $stationNameInput.value = "";
