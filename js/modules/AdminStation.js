@@ -39,7 +39,6 @@ function AdminStation() {
 
         $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
         stations.push(stationName);
-
     };
 
     const onRemoveStationHandler = event => {
@@ -47,7 +46,7 @@ function AdminStation() {
         const isDeleteButton = $target.classList.contains("mdi-delete");
         const stationToDelete = $target.closest(".list-item").innerText.trim();
         if (isDeleteButton && confirm("정말로 " + stationToDelete + "역 지우시겠습니까?")) {
-            const idx = stations.indexOf($target.closest(".list-item").innerText.trim());
+            const idx = stations.indexOf(stationToDelete);
             stations.splice(idx, 1);
             $target.closest(".list-item").remove();
         }
