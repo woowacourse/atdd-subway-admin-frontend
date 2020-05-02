@@ -5,3 +5,7 @@
 #station-name {
   width: calc(100% - 61px);
 }
+
+.station-name-input {
+  display: flex;
+}
