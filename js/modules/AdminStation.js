@@ -5,6 +5,7 @@ function AdminStation() {
   const $stationInput = document.querySelector("#station-name");
   const $stationAddBtn = document.querySelector("#station-add-btn");
   const $stationList = document.querySelector("#station-list");
+  let stations = [];
 
   const onAddStationHandler = event => {
     if (event.key !== KEY_TYPE.ENTER && event.type !== EVENT_TYPE.CLICK ) {
@@ -14,9 +15,11 @@ function AdminStation() {
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
 
-    if (validate(stationName)) {
+    if (validate(stationName, stations)) {
       return;
     }
+
+    stations.push(stationName);
 
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
@@ -45,7 +48,7 @@ function AdminStation() {
   };
 }
 
-function validate(stationName) {
+function validate(stationName, stations) {
   if (!stationName) {
     alert(ERROR_MESSAGE.NOT_EMPTY);
     return true;
@@ -55,8 +58,15 @@ function validate(stationName) {
   } else if (/\d/.test(stationName)) {
     alert(ERROR_MESSAGE.HAS_NUMBER);
     return true;
+  } else if (checkDuplicated(stationName, stations)) {
+    alert(ERROR_MESSAGE.DUPLICATED_STATION_NAME);
+    return true;
   }
   return false;
+}
+
+function checkDuplicated(stationName, stations) {
+  return stations.includes(stationName);
 }
 
 const adminStation = new AdminStation();
