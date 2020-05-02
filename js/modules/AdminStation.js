@@ -52,6 +52,9 @@ function validate(stationName) {
   } else if (stationName.includes(" ")) {
     alert(ERROR_MESSAGE.HAS_SPACE);
     return true;
+  } else if (/\d/.test(stationName)) {
+    alert(ERROR_MESSAGE.HAS_NUMBER);
+    return true;
   }
   return false;
 }
