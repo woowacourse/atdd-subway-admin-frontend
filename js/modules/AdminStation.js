@@ -1,19 +1,34 @@
 import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE } from "../../utils/constants.js";
 import { listItemTemplate } from "../../utils/templates.js";
+import { WrongUserInputException} from "../../utils/exceptions.js"
 
 function AdminStation() {
   const $stationInput = document.querySelector("#station-name");  // 역 이름 입력하는 input 임
   const $stationList = document.querySelector("#station-list");
   const $stationAddButoon = document.querySelector("#station-add-btn");
 
-  const isRightStationName = function () {
-    const stationName = document.querySelector("#station-name").innerHTML;
-    var blank_pattern = /^\s+|\s+$/g;
-    if(stationName.replace( blank_pattern, '' ) == "" ){
-        alert(ERROR_MESSAGE.ONLY_BLANKS);
-        return false;
+  const validateStationName = function (stationName) {
+    if (isStationNameOnlyBlanks(stationName)) {
+        throw new WrongUserInputException(ERROR_MESSAGE.ONLY_BLANKS);
     }
-    return true;
+    if (isStationNameEmpty(stationName)) {
+      throw new WrongUserInputException(ERROR_MESSAGE.NOT_EMPTY);
+    }
+  }
+
+  const isStationNameEmpty = function (stationName) {
+    if (!stationName) {
+      return true;
+    }
+    return false;
+  }
+
+  const isStationNameOnlyBlanks = function (stationName) {
+    const blank_pattern = /^\s+|\s+$/g;
+    if(stationName.replace( blank_pattern, '' ) == "" ) {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -21,16 +36,15 @@ function AdminStation() {
    */
   const onAddStationHandler = event => {
     event.preventDefault();    // 이벤트의 기본동작을 취소한다. (?!)
-    if (!isRightStationName()) {
-      return;
-    };
     const $stationNameInput = document.querySelector("#station-name");  // 5번줄이랑 중복인데... 왜지?
     const stationName = $stationNameInput.value;
-    if (!stationName) {  // 입력된 역 이름이 없을 경우 에러메세지 출력
-      alert(ERROR_MESSAGE.NOT_EMPTY);
+    $stationNameInput.value = "";  // 역 이름 입력창을 비워줌.
+    try {
+      validateStationName(stationName);
+    } catch (e) {
+      alert(e.message);
       return;
     }
-    $stationNameInput.value = "";  // 역 이름 입력창을 비워줌.
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName)); // 역이름 입력 결과 태그 추가
   };
   
