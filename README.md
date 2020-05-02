@@ -41,6 +41,20 @@ live-server 폴더명
 
 ## 🚀 Getting Started
 
+- [x] 지하철 역을 추가할 수 있다.
+  - [DOM](https://techcourse.woowahan.com/s/RnQEhZ2v/ls/lcXDqlZ0)
+  - [EVENT](https://techcourse.woowahan.com/s/RnQEhZ2v/ls/MDKKtDcA)
+- [x] 지하철 역을 추가할 때 유효성 검사를 한다.
+  - [x] 지하철 역은 빈 값이 될 수 없다.
+  - [x] 지하철 역은 스페이스와 같은 공백이 포함될 수 없다.
+  - [x] 지하철역 이름에 숫자는 들어갈 수 없다.
+  - [x] 동일한 이름의 역이 추가될 수 없다.
+- [x] 지하철 역을 삭제할 수 있다.
+- [x] 지하철 역을 삭제 할 때 브라우저에서 제공하는 API인 `confirm`을 활용하여, 사용자가 정말로 삭제할 것인지 확인한다.
+  - [BOM](https://techcourse.woowahan.com/s/RnQEhZ2v/ls/7774jaSc)
+- [x] 오류가 발생하는 경우 `alert`를 활용하여 오류의 원인에 대한 적절한 메세지를 사용자에게 보여준다.
+
+
 ✔️ 미션은 `Fork`후 진행합니다. <br/>
 ✔️ 미션완료 후 아래와 같은 형식으로 PR을 보내주세요.
 ```
