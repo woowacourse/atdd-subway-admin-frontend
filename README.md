@@ -15,7 +15,7 @@
 
 ## 🔥 Projects!
 
-지하철 노선과 역을 관리하는 RUNNINGMAP 서비스의 admin 페입니다.
+지하철 노선과 역을 관리하는 RUNNINGMAP 서비스의 admin 페이지 입니다.
 
 <br>
 
