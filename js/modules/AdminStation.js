@@ -7,33 +7,7 @@ function AdminStation() {
   const $stationList = document.querySelector("#station-list");
   const $stationAddButoon = document.querySelector("#station-add-btn");
 
-  const validateStationName = function (stationName) {
-    if (isStationNameOnlyBlanks(stationName)) {
-        throw new WrongUserInputException(ERROR_MESSAGE.ONLY_BLANKS);
-    }
-    if (isStationNameEmpty(stationName)) {
-      throw new WrongUserInputException(ERROR_MESSAGE.NOT_EMPTY);
-    }
-  }
-
-  const isStationNameEmpty = function (stationName) {
-    if (!stationName) {
-      return true;
-    }
-    return false;
-  }
-
-  const isStationNameOnlyBlanks = function (stationName) {
-    const blank_pattern = /^\s+|\s+$/g;
-    if(stationName.replace( blank_pattern, '' ) == "" ) {
-      return true;
-    }
-    return false;
-  }
-
-  /**
-   * 역 이름 등록할 때 (by submit button)
-   */
+  /* 역 이름 등록할 때 (by submit button) */
   const onAddStationHandler = event => {
     event.preventDefault();    // 이벤트의 기본동작을 취소한다. (?!)
     const $stationNameInput = document.querySelector("#station-name");  // 5번줄이랑 중복인데... 왜지?
@@ -48,19 +22,57 @@ function AdminStation() {
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName)); // 역이름 입력 결과 태그 추가
   };
   
-  /**
-   * 역 이름 입력하고 enter 눌렀을 때
-   */
+  /* 역 이름 입력하고 enter 눌렀을 때 */
   const onAddStationByEnterHandler = event => {
     if (event.key !== KEY_TYPE.ENTER) {
       return;
     }
     onAddStationHandler(event);
-  }
+  };
   
   /**
-   * 입력된 다음에 delete 버튼이 생기는듯? 그거로 아이템지우는 거
+   * 역 이름 validation 메서드
    */
+  const validateStationName = function (stationName) {
+    if (isStationNameEmpty(stationName)) {
+      throw new WrongUserInputException(ERROR_MESSAGE.NOT_EMPTY);
+      return;
+    }
+    if (isStationNameContainsBlanks(stationName)) {
+        throw new WrongUserInputException(ERROR_MESSAGE.CONTAINS_BLANKS);
+        return;
+    }
+    if (isStationNameContainsNumber(stationName)) {
+      throw new WrongUserInputException(ERROR_MESSAGE.CONTAINS_NUMBER);
+      return;
+    }
+  };
+
+  const isStationNameEmpty = function (stationName) {
+    if (!stationName) {
+      return true;
+    }
+    return false;
+  };
+
+  const isStationNameContainsBlanks = function (stationName) {
+    const originalStationName = stationName
+    const stationNameRemovedBlacks = stationName.replace(/ /gi, "");
+    if (originalStationName !== stationNameRemovedBlacks) {
+      return true;
+    }
+    return false;
+  };
+
+  const isStationNameContainsNumber = function (stationName) {
+    const containingNumberPattern = /[0-9]/;
+    if (containingNumberPattern.test(stationName)) {
+      return true;
+    }
+    return false;
+  };
+  
+  /* 입력된 다음에 delete 버튼이 생기는듯? 그거로 아이템지우는 거 */
   const onRemoveStationHandler = event => {
     const $target = event.target;
     const isDeleteButton = $target.classList.contains("mdi-delete");
@@ -69,9 +81,7 @@ function AdminStation() {
     }
   };
 
-  /**
-   * 앞서 정의한 이벤트를 등록하기 위한 메서드
-   */
+  /*  앞서 정의한 이벤트를 등록하기 위한 메서드 */
   const initEventListeners = () => {
     $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, onAddStationByEnterHandler);
     $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
