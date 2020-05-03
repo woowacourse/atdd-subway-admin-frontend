@@ -14,8 +14,7 @@ function AdminStation() {
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
-    if (!stationName) {
-      alert(ERROR_MESSAGE.NOT_EMPTY);
+    if (NotValidationOf(stationName)) {
       return;
     }
     $stationNameInput.value = "";
@@ -38,6 +37,29 @@ function AdminStation() {
 
   const init = () => {
     initEventListeners();
+  };
+
+  const NotValidationOf = stationName => {
+    if (!stationName) {
+      alert(ERROR_MESSAGE.NOT_EMPTY);
+      return true;
+    }
+    if (stationName.match(/[0-9]+/)) {
+      alert(ERROR_MESSAGE.NOT_NUMBER);
+      return true;
+    }
+    if (stationName.match(/\s/)) {
+      alert(ERROR_MESSAGE.NOT_EMPTY_SPACE);
+      return true;
+    }
+    console.log(document.getElementById(`${stationName}`));
+    console.log(document.getElementById(`${stationName}`) == null);
+    if (document.getElementById(`${stationName}`)) {
+      alert(ERROR_MESSAGE.NOT_SAME_STATATION);
+      return true;
+    }
+
+    return false;
   };
 
   return {
