@@ -12,13 +12,34 @@ function AdminStation() {
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
+    const regExp = new RegExp(/^[^\d\s]+$/);
+    
     if (!stationName) {
       alert(ERROR_MESSAGE.NOT_EMPTY);
+      return;
+    }
+    
+    if(!regExp.test(stationName) || validateReduplication(stationName)){
+      alert(ERROR_MESSAGE.INCORRECT_STATION_NAME);
+      $stationNameInput.value = "";
       return;
     }
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
+
+  function validateReduplication(stationName) {
+    const items = document.querySelectorAll('.list-item');
+    let isReduplicate = false;
+    
+    items.forEach(item => {
+      if(item.innerText == stationName){
+        isReduplicate = true;
+        return;
+      }
+    });
+    return isReduplicate;
+  }
 
   const onRemoveStationHandler = event => {
     const $target = event.target;
