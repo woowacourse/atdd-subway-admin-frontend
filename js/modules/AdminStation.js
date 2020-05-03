@@ -23,7 +23,7 @@ function AdminStation() {
     if (stationName.match(/\s/)) {
       alert(ERROR_MESSAGE.NOT_SPACE);
       $stationNameInput.value = "";
-      return ;
+      return;
     }
 
     const $stations = document.querySelectorAll(".list-item");
