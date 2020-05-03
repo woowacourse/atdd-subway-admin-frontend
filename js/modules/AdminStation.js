@@ -1,17 +1,20 @@
-import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE } from "../../utils/constants.js";
-import { listItemTemplate } from "../../utils/templates.js";
+import {ERROR_MESSAGE, EVENT_TYPE, KEY_TYPE} from "../../utils/constants.js";
+import {listItemTemplate} from "../../utils/templates.js";
 
 function AdminStation() {
   const $stationInput = document.querySelector("#station-name");
   const $stationList = document.querySelector("#station-list");
+  const $stationAddButton = document.querySelector('#station-add-btn');
 
   const onAddStationHandler = event => {
-    if (event.key !== KEY_TYPE.ENTER) {
+    if (event.type !== EVENT_TYPE.CLICK && event.key !== KEY_TYPE.ENTER) {
       return;
     }
+
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
+    alert(stationName);
     if (!stationName) {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
