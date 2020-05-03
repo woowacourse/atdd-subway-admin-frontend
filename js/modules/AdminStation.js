@@ -13,9 +13,13 @@ function AdminStation() {
     event.preventDefault();
     const $stationNameInput = document.querySelector('#station-name');
     const stationName = $stationNameInput.value;
+    const blank_pattern = /\s/g;
     if (!stationName) {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
+    }
+    if (stationName.match(blank_pattern)) {
+      alert(ERROR_MESSAGE.NOT_BLANK);
     }
     $stationNameInput.value = '';
     $stationList.insertAdjacentHTML('beforeend', listItemTemplate(stationName));
