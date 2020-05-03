@@ -1,20 +1,24 @@
-import { ERROR_MESSAGE, EVENT_TYPE } from "../../utils/constants.js";
+import { EVENT_TYPE } from "../../utils/constants.js";
 import { listItemTemplate } from "../../utils/templates.js";
+import { validateSubwayName } from '../../utils/validate.js';
 
 function AdminStation() {
+  let stations = [];
   const $stationAddForm = document.querySelector("#station-add-form");
   const $stationList = document.querySelector("#station-list");
 
   const onAddStationHandler = event => {
-    event.preventDefault();
-    const $stationNameInput = document.querySelector("#station-name");
-    const stationName = $stationNameInput.value;
-    if (!stationName) {
-      alert(ERROR_MESSAGE.NOT_EMPTY);
-      return;
+    try {
+      event.preventDefault();
+      const $stationNameInput = document.querySelector("#station-name");
+      const stationName = $stationNameInput.value;
+      validateSubwayName(stationName, stations);
+      $stationNameInput.value = "";
+      $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
+      stations = [...stations, stationName]
+    } catch (error) {
+      alert(error.message);
     }
-    $stationNameInput.value = "";
-    $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
 
   const onRemoveStationHandler = event => {
@@ -22,6 +26,8 @@ function AdminStation() {
     const isDeleteButton = $target.classList.contains("mdi-delete");
     if (isDeleteButton && confirm("진짜 지울거야?")) {
       $target.closest(".list-item").remove();
+      const stationName = $target.closest(".list-item").innerText.trim();
+      stations = stations.filter(station => station !== stationName);
     }
   };
 
