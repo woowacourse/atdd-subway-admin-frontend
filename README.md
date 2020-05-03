@@ -69,6 +69,7 @@ This project is [MIT](https://github.com/woowacourse/atdd-subway-admin-frontend/
 - [x] 지하철 역을 추가할 수 있다.
     - [x] DOM
     - [x] EVENT
+    - [x] 엔터를 입력했을 때와 추가 버튼을 눌렀을 경우 모두 작동하도록 변경
 - [ ] 지하철 역을 추가할 때 유효성 검사를 한다.
     - [ ] 지하철 역은 빈 값이 될 수 없다.
     - [ ] 지하철 역은 스페이스와 같은 공백이 포함될 수 없다.

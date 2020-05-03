@@ -1,14 +1,11 @@
-import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE } from "../../utils/constants.js";
+import { ERROR_MESSAGE, EVENT_TYPE } from "../../utils/constants.js";
 import { listItemTemplate } from "../../utils/templates.js";
 
 function AdminStation() {
-  const $stationInput = document.querySelector("#station-name");
+  const $stationAddForm = document.querySelector("#station-add-form");
   const $stationList = document.querySelector("#station-list");
 
   const onAddStationHandler = event => {
-    if (event.key !== KEY_TYPE.ENTER) {
-      return;
-    }
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
@@ -29,7 +26,7 @@ function AdminStation() {
   };
 
   const initEventListeners = () => {
-    $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, onAddStationHandler);
+    $stationAddForm.addEventListener(EVENT_TYPE.SUBMIT, onAddStationHandler);
     $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
   };
 
