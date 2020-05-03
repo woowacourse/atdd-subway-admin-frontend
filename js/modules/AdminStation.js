@@ -14,13 +14,21 @@ function AdminStation() {
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
+
     if (!stationName) {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
     }
-    const blank_patten = /\s/g;
-    if (stationName.match(blank_patten)) {
+
+    const blankPatten = /\s/g;
+    if (stationName.match(blankPatten)) {
       alert(ERROR_MESSAGE.NOT_SPACE);
+      return;
+    }
+
+    const numberPattern = /\d/g;
+    if (stationName.match(numberPattern)) {
+      alert(ERROR_MESSAGE.NOT_NUMBER);
       return;
     }
     alert(stationName + '역 추가!');
