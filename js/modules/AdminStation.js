@@ -1,4 +1,4 @@
-import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE } from "../../utils/constants.js";
+import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE, CONFIRM_MESSAGE } from "../../utils/constants.js";
 import { listItemTemplate } from "../../utils/templates.js";
 
 function AdminStation() {
@@ -18,12 +18,19 @@ function AdminStation() {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
     }
-    
-    if(!regExp.test(stationName) || validateReduplication(stationName)){
+
+    if(validateReduplication(stationName)){
+      $stationNameInput.value = ""
+      alert(ERROR_MESSAGE.REDUPLCATE_STATION_NAME);
+      return;
+    }
+
+    if(!regExp.test(stationName)){
       alert(ERROR_MESSAGE.INCORRECT_STATION_NAME);
       $stationNameInput.value = "";
       return;
     }
+    
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
@@ -38,10 +45,17 @@ function AdminStation() {
         return;
       }
     });
+
     return isReduplicate;
   }
 
   const onRemoveStationHandler = event => {
+    const isRemove = confirm(CONFIRM_MESSAGE.REMOVE);
+    
+    if(!isRemove){
+      return;
+    }
+
     const $target = event.target;
     const isDeleteButton = $target.classList.contains("mdi-delete");
     if (isDeleteButton) {
