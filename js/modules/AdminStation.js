@@ -35,10 +35,17 @@ function AdminStation() {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return true;
     }
+
     if (stationName.includes(` `)) {
       alert(ERROR_MESSAGE.INCLUDE_SPACE);
       return true;
     }
+
+    if (/\d/g.test(stationName)) {
+      alert(ERROR_MESSAGE.INCLUDE_NUMBER);
+      return true;
+    }
+
     return false;
   }
 

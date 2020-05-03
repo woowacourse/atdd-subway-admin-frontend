@@ -5,7 +5,8 @@ export const EVENT_TYPE = {
 
 export const ERROR_MESSAGE = {
   NOT_EMPTY: "🤔 값을 입력해주세요",
-  INCLUDE_SPACE: "공백은 포함될 수 없습니다."
+  INCLUDE_SPACE: "공백은 포함될 수 없습니다.",
+  INCLUDE_NUMBER: "숫자를 포함할 수 없습니다."
 };
 
 export const KEY_TYPE = {
