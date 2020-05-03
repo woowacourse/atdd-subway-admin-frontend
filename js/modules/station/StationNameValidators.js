@@ -5,51 +5,34 @@ const stationNameValidators = {
         {
             name: "EMPTY",
             getResult: (stationName) => {
-                if (isEmpty(stationName)) {
-                    return {
-                        isNotValid: true,
-                        message: ERROR_MESSAGE.NOT_EMPTY
-                    };
+                if (stationNameValidators.isEmpty(stationName)) {
+                    return stationNameValidators.result(true, ERROR_MESSAGE.NOT_EMPTY);
                 }
-                return {
-                    isNotValid: false
-                }
+                return stationNameValidators.result(false);
             }
         },
         {
             name: "INVALID_NAME",
             getResult: (stationName) => {
-                if (hasInvalidStationName(stationName)) {
-                    return {
-                        isNotValid: true,
-                        message: ERROR_MESSAGE.INVALID_STATION_NAME
-                    }
+                if (stationNameValidators.hasInvalidStationName(stationName)) {
+                    return stationNameValidators.result(true, ERROR_MESSAGE.INVALID_STATION_NAME);
                 }
-                return {
-                    isNotValid: false
-                }
+                return stationNameValidators.result(false);
             }
         },
         {
             name: "ALREADY_CONTAIN",
             getResult: (stationName, stationNameList) => {
-                if (hasAlreadyStation(stationName, stationNameList)) {
-                    return {
-                        isNotValid: true,
-                        message: ERROR_MESSAGE.ALREADY_CONTAIN_STATION
-                    }
+                if (stationNameValidators.hasAlreadyStation(stationName, stationNameList)) {
+                    return stationNameValidators.result(true, ERROR_MESSAGE.ALREADY_CONTAIN_STATION);
                 }
-                return {
-                    isNotValid: false
-                }
+                return stationNameValidators.result(false);
             }
         },
         {
             name: "OK",
             getResult: () => {
-                return {
-                    isNotValid: false
-                }
+                return stationNameValidators.result(false);
             }
         }
     ],
@@ -61,34 +44,41 @@ const stationNameValidators = {
                 return result;
             }
         }
-        return ok;
+        return stationNameValidators.ok();
+    },
+    result(isNotValid, message) {
+        return {
+            isNotValid: isNotValid,
+            message: message
+        }
+    },
+
+    ok() {
+        for (let validator of stationNameValidators.validators) {
+            if (validator.name === "OK") {
+                return validator.getResult();
+            }
+        }
+    }
+
+    , isEmpty(input) {
+        return !input || input.trim().length === 0;
+    }
+
+    , hasInvalidStationName(stationName) {
+        return !!stationName.match("[ |0-9]");
+    }
+
+    , hasAlreadyStation(stationName, stationNameList) {
+        const regExp = new RegExp(stationName);
+        for (let aStationName of stationNameList) {
+            if (aStationName.match(regExp)) {
+                return true;
+            }
+        }
+        return false;
     }
 };
 
-function ok() {
-    stationNameValidators.validators.forEach(function (validator) {
-        if (validator.name === "OK") {
-            return validator.getResult;
-        }
-    })
-}
-
-function isEmpty(input) {
-    return !input || input.trim().length === 0;
-}
-
-function hasInvalidStationName(stationName) {
-    return !!stationName.match("[ |0-9]");
-}
-
-function hasAlreadyStation(stationName, stationNameList) {
-    const regExp = new RegExp(stationName);
-    for (let aStationName of stationNameList) {
-        if (aStationName.match(regExp)) {
-            return true;
-        }
-    }
-    return false;
-}
 
 export default stationNameValidators;
