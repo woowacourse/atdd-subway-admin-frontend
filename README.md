@@ -15,7 +15,7 @@
 
 ## 🔥 Projects!
 
-지하철 노선과 역을 관리하는 RUNNINGMAP 서비스의 admin 페입니다.
+지하철 노선과 역을 관리하는 RUNNINGMAP 서비스의 admin 페이지입니다.
 
 <br>
 
@@ -65,3 +65,17 @@ live-server 폴더명
 ## 📝 License
 
 This project is [MIT](https://github.com/woowacourse/atdd-subway-admin-frontend/blob/master/LICENSE) licensed.
+
+## 구현할 기능 목록
+- [ ] 지하철 역을 추가할 수 있다.
+    - DOM
+    - EVENT
+- [ ] 지하철 역을 추가할 떄 유효성 검사를 한다.
+    - [ ] 지하철 역은 빈 값이 될 수 없다.
+    - [ ] 지하철 역은 스페이스와 같은 공백이 포함될 수 없다.
+    - [ ] 지하철역의 이름에 숫자는 들어갈 수 없다.
+    - [ ] 동일한 이름의 역이 추가될 수 없다.
+- [ ] 지하철 역을 삭제할 수 있다.
+- [ ] 지하철 역을 삭제할 때 브라우저에서 제공하는 API인 `confirm`을 활용하여, 사용자가 정말로 삭제할 것인지 확인한다.
+    - BOM
+- [ ] 오류가 발생하는 경우 `alert`을 활용하여 오류의 원인에 대한 적절한 메세지를 사용자에게 보여준다.
