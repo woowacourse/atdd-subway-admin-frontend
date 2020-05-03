@@ -3,13 +3,23 @@ import { listItemTemplate } from "../../utils/templates.js";
 
 function AdminStation() {
   const $stationInput = document.querySelector("#station-name");
+  const $stationBtn = document.querySelector("#station-add-btn");
   const $stationList = document.querySelector("#station-list");
 
-  const onAddStationHandler = event => {
+  const inputAddStationHandler = event => {
     if (event.key !== KEY_TYPE.ENTER) {
       return;
     }
     event.preventDefault();
+    addStation();
+  };
+
+  const btnAddStaionHandler = event => {
+    event.preventDefault();
+    addStation();
+  };
+
+  function addStation() {
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
     if (!stationName) {
@@ -18,7 +28,7 @@ function AdminStation() {
     }
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
-  };
+  }
 
   const onRemoveStationHandler = event => {
     const $target = event.target;
@@ -29,7 +39,8 @@ function AdminStation() {
   };
 
   const initEventListeners = () => {
-    $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, onAddStationHandler);
+    $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, inputAddStationHandler);
+    $stationBtn.addEventListener(EVENT_TYPE.CLICK, btnAddStaionHandler);
     $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
   };
 
