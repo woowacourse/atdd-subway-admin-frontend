@@ -31,7 +31,19 @@ function AdminStation() {
       alert(ERROR_MESSAGE.NOT_NUMBER);
       return;
     }
+
+    let isDuplicate = false;
+    $stationList.childNodes.forEach(item => {
+      if (item.textContent.trim() === stationName) {
+        isDuplicate = true;
+      }
+    });
+    if (isDuplicate) {
+      alert(ERROR_MESSAGE.NOT_DUPLICATE);
+      return;
+    }
     alert(stationName + '역 추가!');
+
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
@@ -47,6 +59,7 @@ function AdminStation() {
   const initEventListeners = () => {
     $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, onAddStationHandler);
     $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
+    $stationAddButton.addEventListener(EVENT_TYPE.CLICK, onAddStationHandler);
   };
 
   const init = () => {
