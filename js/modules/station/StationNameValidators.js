@@ -61,17 +61,17 @@ const stationNameValidators = {
                 return result;
             }
         }
-        return this.ok;
-    },
-
-    ok() {
-        this.validators.forEach(function (validator) {
-            if (validator.name === "OK") {
-                return validator.getResult;
-            }
-        })
+        return ok;
     }
 };
+
+function ok() {
+    stationNameValidators.validators.forEach(function (validator) {
+        if (validator.name === "OK") {
+            return validator.getResult;
+        }
+    })
+}
 
 function isEmpty(input) {
     return !input || input.trim().length === 0;
