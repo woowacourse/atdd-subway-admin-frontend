@@ -1,7 +1,9 @@
-import {ERROR_MESSAGE, EVENT_TYPE, KEY_TYPE} from "../../utils/constants.js";
+import stationNameValidators from "./station/StationNameValidators.js";
+import {EVENT_TYPE, KEY_TYPE} from "../../utils/constants.js";
 import {listItemTemplate} from "../../utils/templates.js";
 
 function AdminStation() {
+
     const $stationInput = document.querySelector("#station-name");
     const $stationList = document.querySelector("#station-list");
     const $stationAddBtn = document.querySelector("#station-add-btn");
@@ -13,46 +15,24 @@ function AdminStation() {
         event.preventDefault();
         const $stationNameInput = document.querySelector("#station-name");
         const stationName = $stationNameInput.value;
-        if (isEmpty(stationName)) {
+
+        const result = stationNameValidators.getResult(stationName, collectStationNames());
+        if (result.isNotValid) {
+            alert(result.message);
             $stationNameInput.value = "";
-            alert(ERROR_MESSAGE.NOT_EMPTY);
-            return;
-        }
-        if (hasInvalidStationName(stationName)) {
-            $stationNameInput.value = "";
-            alert(ERROR_MESSAGE.INVALID_STATION_NAME);
-            return;
-        }
-        const stationNameList = [];
-        const listItems = document.getElementsByClassName("list-item");
-        for (let item of listItems) {
-            stationNameList.push(item.innerText);
-        }
-        if (hasAlreadyStation(stationNameList, stationName)) {
-            $stationNameInput.value = "";
-            alert(ERROR_MESSAGE.ALREADY_CONTAIN_STATION);
             return;
         }
         $stationNameInput.value = "";
         $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
     };
 
-    function isEmpty(input) {
-        return !input || input.trim().length === 0;
-    }
-
-    function hasInvalidStationName(stationName) {
-        return !!stationName.match("[ |0-9]");
-    }
-
-    function hasAlreadyStation(stationNameList, stationName) {
-        const regExp = new RegExp(stationName);
-        for (let aStationName of stationNameList) {
-            if (aStationName.match(regExp)) {
-                return true;
-            }
+    function collectStationNames() {
+        const stationNameList = [];
+        const listItems = document.getElementsByClassName("list-item");
+        for (let item of listItems) {
+            stationNameList.push(item.innerText);
         }
-        return false;
+        return stationNameList;
     }
 
     const onRemoveStationHandler = event => {
@@ -73,6 +53,7 @@ function AdminStation() {
     };
 
     const init = () => {
+
         initEventListeners();
     };
 
