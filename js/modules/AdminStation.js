@@ -14,12 +14,12 @@ function AdminStation() {
     event.preventDefault();
     const $stationNameInput = document.querySelector('#station-name');
     const stationName = $stationNameInput.value;
-    const blank_pattern = /\s/g;
+    const blank_pattern = /^[^\d\s]+$/;
     if (!stationName) {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
     }
-    if (stationName.match(blank_pattern)) {
+    if (!blank_pattern.test(stationName)) {
       alert(ERROR_MESSAGE.NOT_BLANK);
       return;
     }
