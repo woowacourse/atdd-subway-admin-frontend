@@ -22,12 +22,24 @@ function AdminStation() {
   function addStation() {
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
-    if (!stationName) {
-      alert(ERROR_MESSAGE.NOT_EMPTY);
+    if(validateStationName(stationName)) {
       return;
     }
+
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
+  }
+
+  function validateStationName(stationName) {
+    if (!stationName) {
+      alert(ERROR_MESSAGE.NOT_EMPTY);
+      return true;
+    }
+    if (stationName.includes(` `)) {
+      alert(ERROR_MESSAGE.INCLUDE_SPACE);
+      return true;
+    }
+    return false;
   }
 
   const onRemoveStationHandler = event => {
