@@ -16,9 +16,18 @@ function AdminStation() {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
     }
+
+    const existNumberRegExp = new RegExp("\\w*\\d\\w*");
+    if(existNumberRegExp.test(stationName)) {
+      alert(ERROR_MESSAGE.EXIST_NUMBER);
+      return;
+    }
+
     if (stationName.indexOf(" ") !== -1) {
       alert(ERROR_MESSAGE.EXIST_SPACE)
+      return;
     }
+
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
