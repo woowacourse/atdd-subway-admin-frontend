@@ -5,15 +5,30 @@ function AdminStation() {
   const $stationInput = document.querySelector("#station-name");
   const $stationList = document.querySelector("#station-list");
 
+  function checkDuplication(value) {
+    console.log(value)
+    for(let i=0; i < $stationList.getElementsByTagName('div').length; i++) {
+      if ($stationList.getElementsByTagName('div')[i].innerText === value) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   const onAddStationHandler = event => {
     if (event.key !== KEY_TYPE.ENTER) {
       return;
     }
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
-    const stationName = $stationNameInput.value;
+    const stationName = $stationNameInput.value.trim();
     if (!stationName) {
       alert(ERROR_MESSAGE.NOT_EMPTY);
+      return;
+    }
+    if (checkDuplication(stationName)) {
+      alert(ERROR_MESSAGE.DUPLICATED_NAME)
+      $stationNameInput.value = "";
       return;
     }
     $stationNameInput.value = "";
