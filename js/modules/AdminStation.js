@@ -6,6 +6,8 @@ function AdminStation() {
   const $stationList = document.querySelector("#station-list");
   const $stationButton = document.querySelector("#station-add-btn");
 
+  let stationNames = [];
+
   const onAddStationHandler = event => {
     if (event.key !== KEY_TYPE.ENTER) {
       return;
@@ -16,10 +18,11 @@ function AdminStation() {
   const onRemoveStationHandler = event => {
     const $target = event.target;
     const isDeleteButton = $target.classList.contains("mdi-delete");
-    console.log(event);
-    const isConfirmDelete = confirm(`${event.target.parentNode.parentNode.innerText}를 삭제하겠습니까?`);
+    let stationName = event.target.parentNode.parentNode.innerText;
+    const isConfirmDelete = confirm(`${stationName}를 삭제하겠습니까?`);
     if (isDeleteButton && isConfirmDelete) {
       $target.closest(".list-item").remove();
+      stationNames.splice(stationNames.indexOf(stationName), 1);
     }
   };
 
@@ -72,15 +75,12 @@ function AdminStation() {
   }
 
   function validateDuplicateStationName(stationNameInput, input) {
-    const stationNames = $stationList.querySelectorAll("div");
-    for (let i = 0; i < stationNames.length; i++) {
-      const stationName = stationNames[i].innerText;
-      if (stationName === input) {
-        alert(ERROR_MESSAGE.DUPLICATE);
-        stationNameInput.value = CONSTANT.EMPTY;
-        return false;
-      }
+    if (stationNames.includes(input)) {
+      alert(ERROR_MESSAGE.DUPLICATE);
+      stationNameInput.value = CONSTANT.EMPTY;
+      return false;
     }
+    stationNames = [...stationNames, input];
     return true;
   }
 
