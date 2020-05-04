@@ -16,6 +16,9 @@ function AdminStation() {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
     }
+    if (stationName.indexOf(" ") !== -1) {
+      alert(ERROR_MESSAGE.EXIST_SPACE)
+    }
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
