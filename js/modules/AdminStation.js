@@ -48,10 +48,12 @@ function AdminStation() {
   };
 
   const onRemoveStationHandler = event => {
+    console.log(event)
     const $target = event.target;
     const isDeleteButton = $target.classList.contains("mdi-delete");
-    if (isDeleteButton) {
+    if (isDeleteButton && confirm('정말로 삭제하시겠습니까?')) {
       $target.closest(".list-item").remove();
+      alert('역을 삭제했습니다.')
     }
   };
 
