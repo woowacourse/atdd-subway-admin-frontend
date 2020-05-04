@@ -40,48 +40,48 @@ function AdminStation() {
         }
 
         if (stationName.includes(" ")) {
-            alert(ERROR_MESSAGE.NOT_BLANK));
-        return false;
+            alert(ERROR_MESSAGE.NOT_BLANK);
+            return false;
+        }
+
+        var matches = stationName.match(/\d+/g);
+        if (matches != null) {
+            alert(ERROR_MESSAGE.NOT_NUMBER);
+            return false;
+        }
+
+        const $stations = document.querySelectorAll(".list-item");
+        const $stationArr = Array.from($stations);
+        const isDuplicate = (element) => element.innerText === stationName;
+        if ($stationArr.some(isDuplicate)) {
+            alert(ERROR_MESSAGE.NOT_DUPLICATION);
+            return false;
+        }
+
+        return true;
     }
 
-    var matches = stationName.match(/\d+/g);
-    if (matches != null) {
-        alert(ERROR_MESSAGE.NOT_NUMBER);
-        return false;
-    }
+    const onRemoveStationHandler = event => {
+        const $target = event.target;
+        const isDeleteButton = $target.classList.contains("mdi-delete");
+        if (isDeleteButton) {
+            $target.closest(".list-item").remove();
+        }
+    };
 
-    const $stations = document.querySelectorAll(".list-item");
-    const $stationArr = Array.from($stations);
-    const isDuplicate = (element) => element.innerText === stationName;
-    if ($stationArr.some(isDuplicate)) {
-        alert(ERROR_MESSAGE.NOT_DUPLICATION);
-        return false;
-    }
+    const initEventListeners = () => {
+        $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, onAddStationByEnter);
+        $stationAdd.addEventListener(EVENT_TYPE.CLICK, onAddStationByClick);
+        $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
+    };
 
-    return true;
-}
+    const init = () => {
+        initEventListeners();
+    };
 
-const onRemoveStationHandler = event => {
-    const $target = event.target;
-    const isDeleteButton = $target.classList.contains("mdi-delete");
-    if (isDeleteButton) {
-        $target.closest(".list-item").remove();
-    }
-};
-
-const initEventListeners = () => {
-    $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, onAddStationByEnter);
-    $stationAdd.addEventListener(EVENT_TYPE.CLICK, onAddStationByClick);
-    $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
-};
-
-const init = () => {
-    initEventListeners();
-};
-
-return {
-    init
-};
+    return {
+        init
+    };
 }
 
 const adminStation = new AdminStation();
