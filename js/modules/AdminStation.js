@@ -1,24 +1,9 @@
-import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE } from "../../utils/constants.js";
+import { EVENT_TYPE, ERROR_MESSAGE } from "../../utils/constants.js";
 import { listItemTemplate } from "../../utils/templates.js";
 
 function AdminStation() {
-    const $stationInput = document.querySelector("#station-name");
     const $stationList = document.querySelector("#station-list");
-    const $stationAdd = document.querySelector("#station-add-btn");
-
-    const onAddStationByEnter = event => {
-        if (event.key !== KEY_TYPE.ENTER) {
-            return;
-        }
-        onAddStationHandler(event);
-    }
-
-    const onAddStationByClick = event => {
-        if (event.key !== KEY_TYPE.CLICK) {
-            return;
-        }
-        onAddStationHandler(event);
-    }
+    const $addForm = document.querySelector("#add-form");
 
     const onAddStationHandler = event => {
         event.preventDefault();
@@ -64,18 +49,13 @@ function AdminStation() {
     const onRemoveStationHandler = event => {
         const $target = event.target;
         const isDeleteButton = $target.classList.contains("mdi-delete");
-        let $answer;
-        if (isDeleteButton) {
-            $answer = confirm("정말 삭제하시겠습니까?");
-        }
-        if ($answer) {
+        if (isDeleteButton && confirm("정말 삭제하시겠습니까?")) {
             $target.closest(".list-item").remove();
         }
     };
 
     const initEventListeners = () => {
-        $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, onAddStationByEnter);
-        $stationAdd.addEventListener(EVENT_TYPE.CLICK, onAddStationByClick);
+        $addForm.addEventListener(EVENT_TYPE.SUBMIT, onAddStationHandler);
         $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
     };
 
