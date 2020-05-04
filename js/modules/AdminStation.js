@@ -1,45 +1,65 @@
-import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE } from "../../utils/constants.js";
-import { listItemTemplate } from "../../utils/templates.js";
+import validators from "../../utils/validators.js";
+import {EVENT_TYPE, KEY_TYPE} from "../../utils/constants.js";
+import {listItemTemplate} from "../../utils/templates.js";
 
 function AdminStation() {
-  const $stationInput = document.querySelector("#station-name");
-  const $stationList = document.querySelector("#station-list");
 
-  const onAddStationHandler = event => {
-    if (event.key !== KEY_TYPE.ENTER) {
-      return;
+    const $stationInput = document.querySelector("#station-name");
+    const $stationList = document.querySelector("#station-list");
+    const $stationAddBtn = document.querySelector("#station-add-btn");
+
+    const onAddStationHandler = event => {
+        if (event.key !== KEY_TYPE.ENTER && event.type !== KEY_TYPE.CLICK) {
+            return;
+        }
+        event.preventDefault();
+        const $stationNameInput = document.querySelector("#station-name");
+        const stationName = $stationNameInput.value;
+
+        const result = validators.getResult(stationName, collectStationNames());
+        if (result.isInvalid) {
+            alert(result.message);
+            $stationNameInput.value = "";
+            return;
+        }
+        $stationNameInput.value = "";
+        $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
+    };
+
+    function collectStationNames() {
+        const stationNameList = [];
+        const listItems = document.getElementsByClassName("list-item");
+        for (let item of listItems) {
+            stationNameList.push(item.innerText);
+        }
+        return stationNameList;
     }
-    event.preventDefault();
-    const $stationNameInput = document.querySelector("#station-name");
-    const stationName = $stationNameInput.value;
-    if (!stationName) {
-      alert(ERROR_MESSAGE.NOT_EMPTY);
-      return;
-    }
-    $stationNameInput.value = "";
-    $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
-  };
 
-  const onRemoveStationHandler = event => {
-    const $target = event.target;
-    const isDeleteButton = $target.classList.contains("mdi-delete");
-    if (isDeleteButton) {
-      $target.closest(".list-item").remove();
-    }
-  };
+    const onRemoveStationHandler = event => {
+        const $target = event.target;
+        const isDeleteButton = $target.classList.contains("mdi-delete");
+        if (isDeleteButton) {
+            const deleteConfirm = confirm("정말로 삭제하시겠습니까?");
+            if (deleteConfirm) {
+                $target.closest(".list-item").remove();
+            }
+        }
+    };
 
-  const initEventListeners = () => {
-    $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, onAddStationHandler);
-    $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
-  };
+    const initEventListeners = () => {
+        $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, onAddStationHandler);
+        $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
+        $stationAddBtn.addEventListener(EVENT_TYPE.CLICK, onAddStationHandler);
+    };
 
-  const init = () => {
-    initEventListeners();
-  };
+    const init = () => {
 
-  return {
-    init
-  };
+        initEventListeners();
+    };
+
+    return {
+        init
+    };
 }
 
 const adminStation = new AdminStation();
