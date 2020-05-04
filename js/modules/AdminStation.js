@@ -16,6 +16,26 @@ function AdminStation() {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
     }
+
+    if (stationName.includes(" ")) {
+      alert(ERROR_MESSAGE.NOT_BLANK);
+      return;
+    }
+
+    if (hasNumber(stationName)) {
+      alert(ERROR_MESSAGE.NOT_NUMBER);
+      return;
+    }
+
+    let stations = $stationList.querySelectorAll('.list-item');
+    console.log(stations);
+    for (let i = 0; i < stations.length; i++) {
+      if (stations[i].innerText === stationName) {
+        alert(ERROR_MESSAGE.NOT_DUPLICATION);
+        return;
+      }
+    }
+
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
@@ -40,6 +60,10 @@ function AdminStation() {
   return {
     init
   };
+
+  function hasNumber(myString) {
+    return /\d/.test(myString);
+  }
 }
 
 const adminStation = new AdminStation();
