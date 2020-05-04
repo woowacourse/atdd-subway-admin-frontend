@@ -24,13 +24,42 @@ function AdminStation() {
         event.preventDefault();
         const $stationNameInput = document.querySelector("#station-name");
         const stationName = $stationNameInput.value;
-        if (!stationName) {
-            alert(ERROR_MESSAGE.NOT_EMPTY);
+
+        if (!isValidate(stationName)) {
             return;
-        }
+        };
+
         $stationNameInput.value = "";
         $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
     };
+
+    const isValidate = stationName => {
+        if (!stationName) {
+            alert(ERROR_MESSAGE.NOT_EMPTY);
+            return false;
+        }
+
+        if (stationName.includes(" ")) {
+            alert("지하철 역은 스페이스와 같은 공백이 포함될 수 없다.");
+            return false;
+        }
+
+        var matches = stationName.match(/\d+/g);
+        if (matches != null) {
+            alert("지하철역 이름에 숫자는 들어갈 수 없다.");
+            return false;
+        }
+
+        const $stations = document.querySelectorAll(".list-item");
+        const $stationArr = Array.from($stations);
+        const isDuplicate = (element) => element.innerText === stationName;
+        if ($stationArr.some(isDuplicate)) {
+            alert("동일한 이름의 역이 추가될 수 없다.");
+            return false;
+        }
+
+        return true;
+    }
 
     const onRemoveStationHandler = event => {
         const $target = event.target;
