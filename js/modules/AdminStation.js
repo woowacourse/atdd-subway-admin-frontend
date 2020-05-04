@@ -21,17 +21,17 @@ function AdminStation() {
     }
 
     if (stationName.includes(" ")) {
-      alert("공백이 포함된 이름은 사용할 수 없습니다");
+      alert(ERROR_MESSAGE.NOT_BLANK);
       return;
     }
     //myCode
     if (/\d/.test(stationName)) {
-      alert("숫자가 포함된 이름은 사용할 수 없습니다");
+      alert(ERROR_MESSAGE.NOT_NUMBER);
       return;
     }
     //myCode
     if (duplicatedName(stationName)) {
-      alert("중복된 이름은 사용할 수 없습니다");
+      alert(ERROR_MESSAGE.NOT_DUPLICATED);
       return;
     }
 
