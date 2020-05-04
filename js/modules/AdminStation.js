@@ -1,14 +1,32 @@
-import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE } from "../../utils/constants.js";
+import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE, CONSTANT } from "../../utils/constants.js";
 import { listItemTemplate } from "../../utils/templates.js";
 
 function AdminStation() {
   const $stationInput = document.querySelector("#station-name");
   const $stationList = document.querySelector("#station-list");
+  const $stationButton = document.querySelector("#station-add-btn");
+
+  let stationNames = [];
 
   const onAddStationHandler = event => {
     if (event.key !== KEY_TYPE.ENTER) {
       return;
     }
+    addStation(event);
+  };
+
+  const onRemoveStationHandler = event => {
+    const $target = event.target;
+    const isDeleteButton = $target.classList.contains("mdi-delete");
+    let stationName = event.target.parentNode.parentNode.innerText;
+    const isConfirmDelete = confirm(`${stationName}를 삭제하겠습니까?`);
+    if (isDeleteButton && isConfirmDelete) {
+      $target.closest(".list-item").remove();
+      stationNames.splice(stationNames.indexOf(stationName), 1);
+    }
+  };
+
+  function addStation(event) {
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
@@ -16,21 +34,60 @@ function AdminStation() {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
     }
-    $stationNameInput.value = "";
-    $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
-  };
-
-  const onRemoveStationHandler = event => {
-    const $target = event.target;
-    const isDeleteButton = $target.classList.contains("mdi-delete");
-    if (isDeleteButton) {
-      $target.closest(".list-item").remove();
+    const splitedStationName = splitStationName(stationName);
+    if (validateBlank($stationNameInput, splitedStationName)
+      && validateNumber($stationNameInput, splitedStationName)
+      && validateDuplicateStationName($stationNameInput, stationName)) {
+      $stationNameInput.value = CONSTANT.EMPTY;
+      $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
     }
-  };
+  }
+
+  function splitStationName(stationName) {
+    return stationName.split(CONSTANT.EMPTY);
+  }
+
+  function validateBlank(stationNameInput, splitedStationName) {
+    for (const string of splitedStationName) {
+      if (string === CONSTANT.BLANK) {
+        alert(ERROR_MESSAGE.NOT_BLANK);
+        stationNameInput.value = CONSTANT.EMPTY;
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function validateNumber(stationNameInput, splitedStationName) {
+    for (const string of splitedStationName) {
+      if (isNumber(string)) {
+        alert(ERROR_MESSAGE.IS_NUMBER);
+        stationNameInput.value = CONSTANT.EMPTY;
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function isNumber(string) {
+    const result = string / 1;
+    return !isNaN(result);
+  }
+
+  function validateDuplicateStationName(stationNameInput, input) {
+    if (stationNames.includes(input)) {
+      alert(ERROR_MESSAGE.DUPLICATE);
+      stationNameInput.value = CONSTANT.EMPTY;
+      return false;
+    }
+    stationNames = [...stationNames, input];
+    return true;
+  }
 
   const initEventListeners = () => {
     $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, onAddStationHandler);
     $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
+    $stationButton.addEventListener(EVENT_TYPE.CLICK, addStation);
   };
 
   const init = () => {
