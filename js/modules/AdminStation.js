@@ -1,4 +1,4 @@
-import stationNameValidators from "./station/StationNameValidators.js";
+import validators from "../../utils/validators.js";
 import {EVENT_TYPE, KEY_TYPE} from "../../utils/constants.js";
 import {listItemTemplate} from "../../utils/templates.js";
 
@@ -16,7 +16,7 @@ function AdminStation() {
         const $stationNameInput = document.querySelector("#station-name");
         const stationName = $stationNameInput.value;
 
-        const result = stationNameValidators.getResult(stationName, collectStationNames());
+        const result = validators.getResult(stationName, collectStationNames());
         if (result.isInvalid) {
             alert(result.message);
             $stationNameInput.value = "";

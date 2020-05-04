@@ -1,41 +1,41 @@
-import {ERROR_MESSAGE} from "../../../utils/constants.js";
+import {ERROR_MESSAGE} from "./constants.js";
 
-const stationNameValidators = {
+const validators = {
     validators: [
         {
             name: "EMPTY",
             getResult: (stationName) => {
-                if (stationNameValidators.isEmpty(stationName)) {
-                    return stationNameValidators.result(true, ERROR_MESSAGE.NOT_EMPTY);
+                if (validators.isEmpty(stationName)) {
+                    return validators.result(true, ERROR_MESSAGE.NOT_EMPTY);
                 }
-                return stationNameValidators.result(false);
+                return validators.result(false);
             }
         },
         {
             name: "INVALID_BLANK",
             getResult: (stationName) => {
-                if (stationNameValidators.hasBlank(stationName)) {
-                    return stationNameValidators.result(true, ERROR_MESSAGE.INVALID_BLANK);
+                if (validators.hasBlank(stationName)) {
+                    return validators.result(true, ERROR_MESSAGE.INVALID_BLANK);
                 }
-                return stationNameValidators.result(false);
+                return validators.result(false);
             }
         },
         {
             name: "INVALID_NUMBER",
             getResult: (stationName) => {
-                if (stationNameValidators.hasNumber(stationName)) {
-                    return stationNameValidators.result(true, ERROR_MESSAGE.INVALID_NUMBER);
+                if (validators.hasNumber(stationName)) {
+                    return validators.result(true, ERROR_MESSAGE.INVALID_NUMBER);
                 }
-                return stationNameValidators.result(false);
+                return validators.result(false);
             }
         },
         {
             name: "ALREADY_CONTAIN",
             getResult: (stationName, stationNameList) => {
-                if (stationNameValidators.hasAlreadyStation(stationName, stationNameList)) {
-                    return stationNameValidators.result(true, ERROR_MESSAGE.ALREADY_CONTAIN_STATION);
+                if (validators.hasAlreadyStation(stationName, stationNameList)) {
+                    return validators.result(true, ERROR_MESSAGE.ALREADY_CONTAIN_STATION);
                 }
-                return stationNameValidators.result(false);
+                return validators.result(false);
             }
         }
     ],
@@ -48,7 +48,7 @@ const stationNameValidators = {
                 message.push(result.message);
             }
         }
-        return stationNameValidators.result(message.length !== 0, message.join("\n"));
+        return validators.result(message.length !== 0, message.join("\n"));
     },
 
     result(isInvalid, message) {
@@ -82,4 +82,4 @@ const stationNameValidators = {
 };
 
 
-export default stationNameValidators;
+export default validators;
