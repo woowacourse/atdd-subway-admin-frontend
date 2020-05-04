@@ -13,3 +13,7 @@ export const ERROR_MESSAGE = {
 export const KEY_TYPE = {
   ENTER: "Enter"
 };
+
+export const CONFIRM = {
+  DELETE_STATION: "정말로 삭제하시겠습니까?"
+};
