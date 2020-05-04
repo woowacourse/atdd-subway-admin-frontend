@@ -28,7 +28,6 @@ function AdminStation() {
     }
 
     let stations = $stationList.querySelectorAll('.list-item');
-    console.log(stations);
     for (let i = 0; i < stations.length; i++) {
       if (stations[i].innerText === stationName) {
         alert(ERROR_MESSAGE.NOT_DUPLICATION);
@@ -43,6 +42,13 @@ function AdminStation() {
   const onRemoveStationHandler = event => {
     const $target = event.target;
     const isDeleteButton = $target.classList.contains("mdi-delete");
+
+    let result = confirm('진짜로 삭제할 것입니까?');
+    console.log(result);
+    if (!result) {
+      return;
+    }
+
     if (isDeleteButton) {
       $target.closest(".list-item").remove();
     }
