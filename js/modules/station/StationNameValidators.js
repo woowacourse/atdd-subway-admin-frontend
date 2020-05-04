@@ -42,15 +42,13 @@ const stationNameValidators = {
 
     getResult(stationName, stationNameList) {
         const message = [];
-        let isInvalid = false;
         for (let validator of this.validators) {
             const result = validator.getResult(stationName, stationNameList);
             if (result.isInvalid) {
-                isInvalid = true;
                 message.push(result.message);
             }
         }
-        return stationNameValidators.result(isInvalid, message.join("\n"));
+        return stationNameValidators.result(message.length !== 0, message.join("\n"));
     },
 
     result(isInvalid, message) {
