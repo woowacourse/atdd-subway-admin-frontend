@@ -5,6 +5,22 @@ function AdminStation() {
   const $stationInput = document.querySelector("#station-name");
   const $stationAddButton = document.querySelector("#station-add-btn");
   const $stationList = document.querySelector("#station-list");
+  const stationList = [];
+
+  const validate = station => {
+    if (!station) {
+      throw ERROR_MESSAGE.NOT_EMPTY;
+    }
+    if (station.includes(" ")) {
+      throw ERROR_MESSAGE.NOT_BLANK;
+    }
+    if (station.match(/[0-9]/)) {
+      throw ERROR_MESSAGE.NOT_NUMBER;
+    }
+    if (stationList.includes(station)) {
+      throw ERROR_MESSAGE.NOT_EXISTS;
+    }
+  }
 
   const onAddStationHandler = event => {
     if (event.type === EVENT_TYPE.KEY_PRESS && event.key !== KEY_TYPE.ENTER) {
@@ -13,12 +29,14 @@ function AdminStation() {
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
-    if (!stationName) {
-      alert(ERROR_MESSAGE.NOT_EMPTY);
-      return;
+    try {
+      validate(stationName);
+      stationList.push(stationName);
+      $stationNameInput.value = "";
+      $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
+    } catch (e) {
+      alert(e);
     }
-    $stationNameInput.value = "";
-    $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
 
   const onRemoveStationHandler = event => {
