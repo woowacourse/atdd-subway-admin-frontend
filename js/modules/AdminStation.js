@@ -40,48 +40,48 @@ function AdminStation() {
         }
 
         if (stationName.includes(" ")) {
-            alert("지하철 역은 스페이스와 같은 공백이 포함될 수 없다.");
-            return false;
-        }
-
-        var matches = stationName.match(/\d+/g);
-        if (matches != null) {
-            alert("지하철역 이름에 숫자는 들어갈 수 없다.");
-            return false;
-        }
-
-        const $stations = document.querySelectorAll(".list-item");
-        const $stationArr = Array.from($stations);
-        const isDuplicate = (element) => element.innerText === stationName;
-        if ($stationArr.some(isDuplicate)) {
-            alert("동일한 이름의 역이 추가될 수 없다.");
-            return false;
-        }
-
-        return true;
+            alert(ERROR_MESSAGE.NOT_BLANK));
+        return false;
     }
 
-    const onRemoveStationHandler = event => {
-        const $target = event.target;
-        const isDeleteButton = $target.classList.contains("mdi-delete");
-        if (isDeleteButton) {
-            $target.closest(".list-item").remove();
-        }
-    };
+    var matches = stationName.match(/\d+/g);
+    if (matches != null) {
+        alert(ERROR_MESSAGE.NOT_NUMBER);
+        return false;
+    }
 
-    const initEventListeners = () => {
-        $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, onAddStationByEnter);
-        $stationAdd.addEventListener(EVENT_TYPE.CLICK, onAddStationByClick);
-        $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
-    };
+    const $stations = document.querySelectorAll(".list-item");
+    const $stationArr = Array.from($stations);
+    const isDuplicate = (element) => element.innerText === stationName;
+    if ($stationArr.some(isDuplicate)) {
+        alert(ERROR_MESSAGE.NOT_DUPLICATION);
+        return false;
+    }
 
-    const init = () => {
-        initEventListeners();
-    };
+    return true;
+}
 
-    return {
-        init
-    };
+const onRemoveStationHandler = event => {
+    const $target = event.target;
+    const isDeleteButton = $target.classList.contains("mdi-delete");
+    if (isDeleteButton) {
+        $target.closest(".list-item").remove();
+    }
+};
+
+const initEventListeners = () => {
+    $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, onAddStationByEnter);
+    $stationAdd.addEventListener(EVENT_TYPE.CLICK, onAddStationByClick);
+    $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
+};
+
+const init = () => {
+    initEventListeners();
+};
+
+return {
+    init
+};
 }
 
 const adminStation = new AdminStation();
