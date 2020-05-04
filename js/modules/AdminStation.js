@@ -16,6 +16,14 @@ function AdminStation() {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
     }
+    const items = document.querySelectorAll('.list-item');
+
+    for(let i = 0; i < items.length; i++) {
+      if(stationName === items.item(i).innerText) {
+        alert(ERROR_MESSAGE.EXIST_DUPLICATION_STATION_NAME);
+        return;
+      }
+    }
 
     const existNumberRegExp = new RegExp("\\w*\\d\\w*");
     if(existNumberRegExp.test(stationName)) {
