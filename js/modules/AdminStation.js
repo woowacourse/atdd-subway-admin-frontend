@@ -22,12 +22,18 @@ function AdminStation() {
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value.trim();
+    const regex = RegExp(/[0-9]/)
     if (!stationName) {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
     }
     if (checkDuplication(stationName)) {
       alert(ERROR_MESSAGE.DUPLICATED_NAME)
+      $stationNameInput.value = "";
+      return;
+    }
+    if (regex.test(stationName)) {
+      alert(ERROR_MESSAGE.CONTAIN_NUMBER)
       $stationNameInput.value = "";
       return;
     }
