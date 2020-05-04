@@ -24,10 +24,12 @@ function AdminStation() {
       alert("공백이 포함된 이름은 사용할 수 없습니다");
       return;
     }
+    //myCode
     if (/\d/.test(stationName)) {
       alert("숫자가 포함된 이름은 사용할 수 없습니다");
       return;
     }
+    //myCode
     if (duplicatedName(stationName)) {
       alert("중복된 이름은 사용할 수 없습니다");
       return;
@@ -37,6 +39,7 @@ function AdminStation() {
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
 
+  //myCode
   function duplicatedName(input) {
     const names = document.querySelectorAll(".list-item");
     const namesArr = Array.from(names);
@@ -49,7 +52,8 @@ function AdminStation() {
   const onRemoveStationHandler = event => {
     const $target = event.target;
     const isDeleteButton = $target.classList.contains("mdi-delete");
-    if (isDeleteButton) {
+    //myCode
+    if (isDeleteButton && confirm("정말 삭제하시겠습니까?")) {
       $target.closest(".list-item").remove();
     }
   };
