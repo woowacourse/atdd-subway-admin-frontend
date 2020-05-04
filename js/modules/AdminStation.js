@@ -19,9 +19,32 @@ function AdminStation() {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
     }
+
+    if (stationName.includes(" ")) {
+      alert("공백이 포함된 이름은 사용할 수 없습니다");
+      return;
+    }
+    if (/\d/.test(stationName)) {
+      alert("숫자가 포함된 이름은 사용할 수 없습니다");
+      return;
+    }
+    if (duplicatedName(stationName)) {
+      alert("중복된 이름은 사용할 수 없습니다");
+      return;
+    }
+
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
+
+  function duplicatedName(input) {
+    const names = document.querySelectorAll(".list-item");
+    const namesArr = Array.from(names);
+
+    return namesArr.some(element => {
+      return element.innerText === input;
+    });
+  }
 
   const onRemoveStationHandler = event => {
     const $target = event.target;
