@@ -20,7 +20,7 @@ function AdminStation() {
             return false;
         }
         const $listItem = document.querySelectorAll(".list-item");
-        for (let i = 0; i < $listItem.length; i++) {
+        for (let i = 0 ; i < $listItem.length ; i++) {
             if ($listItem.item(i).innerText === stationName) {
                 alert(ERROR_MESSAGE.SAME_STATION_EXISTS);
                 return false;
@@ -49,8 +49,10 @@ function AdminStation() {
         const isDeleteButton = $target.classList.contains("mdi-delete");
 
         if (isDeleteButton) {
-            $target.closest(".list-item").remove();
-
+            let deleteResponse = confirm("정말로 삭제하시겠습니까?");
+            if (deleteResponse) {
+                $target.closest(".list-item").remove();
+            }
         }
     };
 
