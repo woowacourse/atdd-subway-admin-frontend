@@ -12,8 +12,21 @@ function AdminStation() {
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
+    const stationList = [].map.call(document.querySelectorAll(".list-item"), e=>e.innerText);
     if (!stationName) {
       alert(ERROR_MESSAGE.NOT_EMPTY);
+      return;
+    }
+    console.log(stationList)
+    for (const stationListElement of stationList) {
+      if (stationName === stationListElement) {
+        alert("동일한 이름의 역이 존재합니다.");
+        return;
+      }
+    }
+    const nameCondition = /^([^0-9^\s])+$/;
+    if (!stationName.match(nameCondition)) {
+      alert("역 이름에는 공백 및 숫자가 들어갈 수 없습니다.");
       return;
     }
     $stationNameInput.value = "";
@@ -24,7 +37,10 @@ function AdminStation() {
     const $target = event.target;
     const isDeleteButton = $target.classList.contains("mdi-delete");
     if (isDeleteButton) {
-      $target.closest(".list-item").remove();
+      const removeConfirm = confirm("정말 삭제하시겠습니까?");
+      if (removeConfirm) {
+        $target.closest(".list-item").remove();
+      }
     }
   };
 
