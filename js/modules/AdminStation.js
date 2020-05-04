@@ -17,7 +17,7 @@ function AdminStation() {
         const stationName = $stationNameInput.value;
 
         const result = stationNameValidators.getResult(stationName, collectStationNames());
-        if (result.isNotValid) {
+        if (result.isInvalid) {
             alert(result.message);
             $stationNameInput.value = "";
             return;

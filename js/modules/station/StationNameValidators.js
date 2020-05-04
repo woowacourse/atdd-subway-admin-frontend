@@ -12,10 +12,19 @@ const stationNameValidators = {
             }
         },
         {
-            name: "INVALID_NAME",
+            name: "INVALID_BLANK",
             getResult: (stationName) => {
-                if (stationNameValidators.hasInvalidStationName(stationName)) {
-                    return stationNameValidators.result(true, ERROR_MESSAGE.INVALID_STATION_NAME);
+                if (stationNameValidators.hasBlank(stationName)) {
+                    return stationNameValidators.result(true, ERROR_MESSAGE.INVALID_BLANK);
+                }
+                return stationNameValidators.result(false);
+            }
+        },
+        {
+            name: "INVALID_NUMBER",
+            getResult: (stationName) => {
+                if (stationNameValidators.hasNumber(stationName)) {
+                    return stationNameValidators.result(true, ERROR_MESSAGE.INVALID_NUMBER);
                 }
                 return stationNameValidators.result(false);
             }
@@ -28,48 +37,42 @@ const stationNameValidators = {
                 }
                 return stationNameValidators.result(false);
             }
-        },
-        {
-            name: "OK",
-            getResult: () => {
-                return stationNameValidators.result(false);
-            }
         }
     ],
 
     getResult(stationName, stationNameList) {
+        const message = [];
+        let isInvalid = false;
         for (let validator of this.validators) {
             const result = validator.getResult(stationName, stationNameList);
-            if (result.isNotValid) {
-                return result;
+            if (result.isInvalid) {
+                isInvalid = true;
+                message.push(result.message);
             }
         }
-        return stationNameValidators.ok();
+        return stationNameValidators.result(isInvalid, message.join("\n"));
     },
-    result(isNotValid, message) {
+
+    result(isInvalid, message) {
         return {
-            isNotValid: isNotValid,
+            isInvalid: isInvalid,
             message: message
         }
     },
 
-    ok() {
-        for (let validator of stationNameValidators.validators) {
-            if (validator.name === "OK") {
-                return validator.getResult();
-            }
-        }
-    }
-
-    , isEmpty(input) {
+    isEmpty(input) {
         return !input || input.trim().length === 0;
-    }
+    },
 
-    , hasInvalidStationName(stationName) {
-        return !!stationName.match("[ |0-9]");
-    }
+    hasBlank(stationName) {
+        return !!stationName.match(" ");
+    },
 
-    , hasAlreadyStation(stationName, stationNameList) {
+    hasNumber(stationName) {
+        return !!stationName.match("[0-9]");
+    },
+
+    hasAlreadyStation(stationName, stationNameList) {
         const regExp = new RegExp(stationName);
         for (let aStationName of stationNameList) {
             if (aStationName.match(regExp)) {
