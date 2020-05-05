@@ -14,28 +14,10 @@ function AdminStation() {
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
 
-    if (!stationName) {
-      alert(ERROR_MESSAGE.NOT_EMPTY);
+    const errorMsg = getInvalidNameErrorMsg(stationName);
+    if (errorMsg) {
+      alert(errorMsg);
       return;
-    }
-
-    if (Array.from(stationName).some(c => c === " ")) {
-      alert(ERROR_MESSAGE.BLANK_EXIST);
-      return;
-    }
-
-    const isNumber = /[0-9]/g;
-    if (Array.from(stationName).some(c => isNumber.test(c))) {
-      alert(ERROR_MESSAGE.NUMBER_EXIST);
-      return;
-    }
-
-    const names = $stationList.getElementsByTagName("div");
-    for (let i = 0; i < names.length; i++) {
-      if (names[i].innerText === stationName) {
-        alert(ERROR_MESSAGE.DUPLICATION);
-        return;
-      }
     }
 
     $stationNameInput.value = "";
@@ -64,6 +46,27 @@ function AdminStation() {
   return {
     init
   };
+}
+
+function getInvalidNameErrorMsg(stationName) {
+  let errorMsg;
+  if (!stationName) {
+    errorMsg = ERROR_MESSAGE.NOT_EMPTY;
+  }
+  if (Array.from(stationName).some(c => c === " ")) {
+    errorMsg = ERROR_MESSAGE.BLANK_EXIST;
+  }
+  if (Array.from(stationName).some(c => /[0-9]/g.test(c))) {
+    errorMsg = ERROR_MESSAGE.NUMBER_EXIST;
+  }
+  const $stationList = document.querySelector("#station-list");
+  const names = $stationList.getElementsByTagName("div");
+  for (let i = 0; i < names.length; i++) {
+    if (names[i].innerText === stationName) {
+      errorMsg = ERROR_MESSAGE.DUPLICATION;
+    }
+  }
+  return errorMsg;
 }
 
 const adminStation = new AdminStation();
