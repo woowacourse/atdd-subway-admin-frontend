@@ -12,16 +12,32 @@ function AdminStation() {
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
-    const pattern = /\s/;
-    const pattern1 = /\d/;
 
-    if (!stationName || pattern.test(stationName) || pattern1.test(stationName)) {
+    if (isValid(stationName)) {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
     }
 
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
+  };
+
+  const isValid = (value) => {
+    if (!value || hasSpace(value) || hasNumber(value)) {
+      return true;
+    }
+    return false;
+  };
+
+  const hasSpace = (value) => {
+    const pattern = /\s/;
+
+    return pattern.test(value);
+  };
+  const hasNumber = (value) => {
+    const pattern = /\d/;
+
+    return pattern.test(value);
   };
 
   const onRemoveStationHandler = (event) => {
