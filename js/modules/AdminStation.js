@@ -13,8 +13,9 @@ function AdminStation() {
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
     const pattern = /\s/;
+    const pattern1 = /\d/;
 
-    if (!stationName || pattern.test(stationName)) {
+    if (!stationName || pattern.test(stationName) || pattern1.test(stationName)) {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
     }
