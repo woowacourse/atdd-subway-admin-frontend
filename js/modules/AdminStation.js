@@ -5,7 +5,10 @@ function AdminStation() {
   const $stationInput = document.querySelector("#station-name");
   const $stationAddButton = document.querySelector("#station-add-btn");
   const $stationList = document.querySelector("#station-list");
-  const stationList = [];
+
+  const state = {
+    stations: []
+  };
 
   const validate = station => {
     if (!station) {
@@ -17,10 +20,20 @@ function AdminStation() {
     if (station.match(/[0-9]/)) {
       throw ERROR_MESSAGE.NOT_NUMBER;
     }
-    if (stationList.includes(station)) {
+    if (state.stations.includes(station)) {
       throw ERROR_MESSAGE.NOT_EXISTS;
     }
-  }
+  };
+
+  const addStation = station => {
+    state.stations = state.stations.concat(station);
+    $stationList.insertAdjacentHTML("beforeend", listItemTemplate(station));
+  };
+
+  const removeStation = station => {
+    state.stations = state.stations.filter(value => value !== station);
+    [...$stationList.querySelectorAll('.list-item')].find($station => $station.innerText === station).remove();
+  };
 
   const onAddStationHandler = event => {
     if (event.type === EVENT_TYPE.KEY_PRESS && event.key !== KEY_TYPE.ENTER) {
@@ -31,9 +44,8 @@ function AdminStation() {
     const stationName = $stationNameInput.value;
     try {
       validate(stationName);
-      stationList.push(stationName);
+      addStation(stationName);
       $stationNameInput.value = "";
-      $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
     } catch (e) {
       alert(e);
     }
@@ -43,9 +55,7 @@ function AdminStation() {
     const $target = event.target;
     const isDeleteButton = $target.classList.contains("mdi-delete");
     if (isDeleteButton && confirm('정말로 삭제하시겠습니까?')) {
-      const $item = $target.closest(".list-item");
-      stationList.splice(stationList.indexOf($item.textContent.trim()), 1);
-      $item.remove();
+      removeStation($target.closest(".list-item").innerText)
     }
   };
 
