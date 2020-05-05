@@ -26,8 +26,33 @@ function AdminStation() {
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
 
+    validateStationName();
+
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
+  }
+
+  function validateStationName() {
+    if (!stationName) {
+      alert(ERROR_MESSAGE.NOT_EMPTY);
+      return;
+    }
+
+    if (stationName.search(/\s/) !== -1) {
+      alert(ERROR_MESSAGE.HAS_SPACE);
+      return true;
+    }
+
+    if (stationName.match(/[0-9]/)) {
+      alert(ERROR_MESSAGE.HAS_NUMBER);
+      return true;
+    }
+
+
+    if ($stationList.innerText.split("\n").includes(stationName)) {
+      alert(ERROR_MESSAGE.DUPLICATED);
+      return true;
+    }
   }
 
   const onRemoveStationHandler = event => {
