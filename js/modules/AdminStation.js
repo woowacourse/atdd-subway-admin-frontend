@@ -4,9 +4,10 @@ import { listItemTemplate } from "../../utils/templates.js";
 function AdminStation() {
   const $stationInput = document.querySelector("#station-name");
   const $stationList = document.querySelector("#station-list");
+  const $stationAddBtn = document.querySelector("#station-add-btn");
 
   const onAddStationHandler = event => {
-    if (event.key !== KEY_TYPE.ENTER) {
+    if (event.key !== KEY_TYPE.ENTER && event.type !== EVENT_TYPE.CLICK) {
       return;
     }
     event.preventDefault();
@@ -33,6 +34,7 @@ function AdminStation() {
   const initEventListeners = () => {
     $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, onAddStationHandler);
     $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
+    $stationAddBtn.addEventListener(EVENT_TYPE.CLICK, onAddStationHandler);
   };
 
   const init = () => {
