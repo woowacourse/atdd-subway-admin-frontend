@@ -13,7 +13,7 @@ function AdminStation() {
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
 
-    if (isValid(stationName)) {
+    if (isInvalid(stationName) || isDuplicate(stationName)) {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
     }
@@ -22,7 +22,7 @@ function AdminStation() {
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
 
-  const isValid = (value) => {
+  const isInvalid = (value) => {
     if (!value || hasSpace(value) || hasNumber(value)) {
       return true;
     }
@@ -38,6 +38,16 @@ function AdminStation() {
     const pattern = /\d/;
 
     return pattern.test(value);
+  };
+
+  const isDuplicate = (value) => {
+    const $stationList = document.querySelector("#station-list");
+    const pattern = new RegExp(value);
+
+    if (pattern.test($stationList.textContent)) {
+      return true;
+    }
+    return false;
   };
 
   const onRemoveStationHandler = (event) => {
