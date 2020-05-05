@@ -17,6 +17,18 @@ function AdminStation() {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
     }
+    if(Array.from(stationName).some(c => c === " ") || /[0-9]/.test(stationName)) {
+      alert(ERROR_MESSAGE.INVALID_INPUT);
+      return;
+    }
+    const names = $stationList.querySelectorAll(".list-item");
+    for(let name of names) {
+      if(name.innerText === stationName) {
+        alert(ERROR_MESSAGE.DUPLICATE);
+        return;
+      }
+    }
+
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   };
