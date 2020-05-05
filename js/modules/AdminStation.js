@@ -24,7 +24,9 @@ function AdminStation() {
     const $target = event.target;
     const isDeleteButton = $target.classList.contains("mdi-delete");
     if (isDeleteButton) {
-      $target.closest(".list-item").remove();
+      if(confirm(ERROR_MESSAGE.ASK_DELETE) === true) {
+        $target.closest(".list-item").remove();
+      }
     }
   };
 
