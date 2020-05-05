@@ -6,6 +6,29 @@ function AdminStation() {
   const $stationList = document.querySelector("#station-list");
   const $stationAddBtn = document.querySelector("#station-add-btn");
 
+  function isValidStationName(stationName) {
+    if(stationName === "") {
+      alert(ERROR_MESSAGE.NOT_EMPTY);
+      return false;
+    }
+    if(/[\s]/g.test(stationName)){
+      alert(ERROR_MESSAGE.NOT_BLANK);
+      return false;
+    }
+    if(/[0-9]/g.test(stationName)) {
+      alert(ERROR_MESSAGE.NOT_NUMBER);
+      return false;
+    }
+    const $items = document.querySelectorAll(".list-item")
+    for(let i = 0; i < $items.length; i++) {
+      if($items.item(i).innerText === stationName) {
+        alert(ERROR_MESSAGE.NOT_SAME_NAME);
+        return false;
+      }
+    }
+    return true;
+  }
+
   const onAddStationHandler = event => {
     if (event.key !== KEY_TYPE.ENTER && event.type !== EVENT_TYPE.CLICK) {
       return;
@@ -13,8 +36,7 @@ function AdminStation() {
     event.preventDefault();
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
-    if (!stationName) {
-      alert(ERROR_MESSAGE.NOT_EMPTY);
+    if (!isValidStationName(stationName)) {
       return;
     }
     $stationNameInput.value = "";
