@@ -26,13 +26,13 @@ function AdminStation() {
     const $stationNameInput = document.querySelector("#station-name");
     const stationName = $stationNameInput.value;
 
-    validateStationName();
+    validateStationName(stationName);
 
     $stationNameInput.value = "";
     $stationList.insertAdjacentHTML("beforeend", listItemTemplate(stationName));
   }
 
-  function validateStationName() {
+  function validateStationName(stationName) {
     if (!stationName) {
       alert(ERROR_MESSAGE.NOT_EMPTY);
       return;
@@ -59,7 +59,10 @@ function AdminStation() {
     const $target = event.target;
     const isDeleteButton = $target.classList.contains("mdi-delete");
     if (isDeleteButton) {
-      $target.closest(".list-item").remove();
+      const confirm = window.confirm("정말로 삭제하시겠습니까?");
+      if (confirm === true) {
+        $target.closest(".list-item").remove();
+      }
     }
   };
 
