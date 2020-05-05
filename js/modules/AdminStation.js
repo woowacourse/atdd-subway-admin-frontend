@@ -1,10 +1,10 @@
-import {ERROR_MESSAGE, EVENT_TYPE, KEY_TYPE} from "../../utils/constants.js";
-import {listItemTemplate} from "../../utils/templates.js";
+import { EVENT_TYPE, ERROR_MESSAGE, KEY_TYPE } from "../../utils/constants.js";
+import { listItemTemplate } from "../../utils/templates.js";
 
 function AdminStation() {
     const $stationInput = document.querySelector("#station-name");
-    const $stationAddButton = document.querySelector("#station-add-btn");
     const $stationList = document.querySelector("#station-list");
+    const $stationAddButton = document.querySelector("#station-add-btn");
 
     const validate = stationName => {
         if (stationName === '') {
@@ -45,8 +45,8 @@ function AdminStation() {
 
     const initEventListeners = () => {
         $stationInput.addEventListener(EVENT_TYPE.KEY_PRESS, onAddStationHandler);
-        $stationAddButton.addEventListener(EVENT_TYPE.CLICK, onAddStationHandler);
         $stationList.addEventListener(EVENT_TYPE.CLICK, onRemoveStationHandler);
+        $stationAddButton.addEventListener(EVENT_TYPE.CLICK, onAddStationHandler);
     };
 
     const init = () => {
